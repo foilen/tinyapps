@@ -1,2 +1,4 @@
 include 'ChainCommander'
+include 'Savior:saviorlib'
+include 'Savior:saviorgui'
 include 'UpdateWatcher'

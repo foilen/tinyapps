@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>tinyapps</name>
+	<name>Savior</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -17,7 +17,7 @@
 	</natures>
 	<filteredResources>
 		<filter>
-			<id>1408219208582</id>
+			<id>1408219208839</id>
 			<name></name>
 			<type>26</type>
 			<matcher>
@@ -25,15 +25,11 @@
 				<arguments>
 					<matcher>
 						<id>org.eclipse.ui.ide.multiFilter</id>
-						<arguments>1.0-projectRelativePath-equals-true-false-UpdateWatcher</arguments>
+						<arguments>1.0-projectRelativePath-equals-true-false-saviorgui</arguments>
 					</matcher>
 					<matcher>
 						<id>org.eclipse.ui.ide.multiFilter</id>
-						<arguments>1.0-projectRelativePath-equals-true-false-Savior</arguments>
-					</matcher>
-					<matcher>
-						<id>org.eclipse.ui.ide.multiFilter</id>
-						<arguments>1.0-projectRelativePath-equals-true-false-ChainCommander</arguments>
+						<arguments>1.0-projectRelativePath-equals-true-false-saviorlib</arguments>
 					</matcher>
 				</arguments>
 			</matcher>

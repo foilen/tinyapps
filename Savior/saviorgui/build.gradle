@@ -1,0 +1,9 @@
+version = '2.0.3'
+mainClassName = 'ca.pgon.saviorgui.GUI.Principal'
+
+dependencies {
+    compile project(':Savior:saviorlib')
+    compile 'org.jdom:jdom:1.1'
+    
+    testCompile 'junit:junit:4.11'
+}
