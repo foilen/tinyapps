@@ -10,7 +10,7 @@ To create a zip:
 * gradle distZip
 
 To load in Eclipse:
-* Simply import the projects since all the Eclipse's project files are present in the repository.
+* Simply import the projects as Gradle projects.
 
 Applications:
 * ChainCommander: Upload some files with clients in chain. When the client connects to the server, the server will tell him the last client connected so that he can download from that one.
