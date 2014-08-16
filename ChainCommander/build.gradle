@@ -1,0 +1,10 @@
+version = 1.0
+mainClassName = 'ca.pgon.chaincommander.Main'
+
+dependencies {
+    compile 'com.google.guava:guava:11.0.2'
+    compile 'org.apache.commons:commons-lang3:3.1'
+    
+    testCompile 'junit:junit:4.11'
+    testCompile 'ca.pgon:helpers:1.0.0'
+}
