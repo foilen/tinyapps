@@ -1,0 +1,6 @@
+version = 1.0
+mainClassName = 'ca.pgon.UpdateWatcher.App'
+
+dependencies {
+    compile 'ca.pgon:st-light7:3.0'
+}
