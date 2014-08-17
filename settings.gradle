@@ -1,3 +1,4 @@
+include 'AmazonS3MassContentType'
 include 'ChainCommander'
 include 'FreenetKnowledge'
 include 'LinksValidator'
