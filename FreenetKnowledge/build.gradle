@@ -1,0 +1,29 @@
+version = 1.1
+mainClassName = 'ca.pgon.freenetknowledge.App'
+
+buildscript {
+    repositories {
+        mavenLocal()
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.1.5.RELEASE")
+    }
+}
+
+apply plugin: 'spring-boot'
+
+dependencies {
+
+    compile 'com.h2database:h2'
+    compile 'javax.servlet:jstl'
+    compile 'javax.servlet.jsp:jsp-api:2.1'
+    compile 'org.apache.commons:commons-lang3:3.1'
+    compile 'org.apache.lucene:lucene-core:3.4.0'
+    compile 'org.apache.tomcat.embed:tomcat-embed-jasper'
+    compile 'org.springframework.boot:spring-boot-starter-jdbc'
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    
+    testCompile 'junit:junit'
+    testCompile 'org.springframework:spring-test'
+}

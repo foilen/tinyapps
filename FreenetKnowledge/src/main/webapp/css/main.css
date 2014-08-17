@@ -1,0 +1,41 @@
+#header ul {
+	padding-left: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+#header ul li:FIRST-CHILD {
+	display: inline;
+	padding-left: 40px;
+	padding-right: 10px;
+}
+
+#header ul li {
+	display: inline;
+	padding-left: 20px;
+	padding-right: 10px;
+}
+
+#appName {
+	float: right;
+	font-family: 'Comic Sans MS', cursive;
+	font-size: 24px;
+	padding-right: 100px;
+}
+
+#visitationState {
+	text-align: center;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:HOVER {
+	color: gray;
+}
+
+iframe {
+	width: 100%;
+	height: 100%;
+}

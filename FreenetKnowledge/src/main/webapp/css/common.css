@@ -1,0 +1,44 @@
+body {
+	background-image: url(../img/back.jpg);
+}
+
+#query {
+	width: 700px;
+}
+
+#options {
+	padding-left: 0px;
+}
+
+#options li:FIRST-CHILD {
+	display: inline;
+	padding-left: 40px;
+	padding-right: 10px;
+}
+
+#options li {
+	display: inline;
+	padding-left: 20px;
+	padding-right: 10px;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:HOVER {
+	color: gray;
+}
+
+.imagesResult li {
+	list-style-type: none;
+	float: left;
+	display: inline;
+	width: 215px;
+	height: 215px;
+}
+
+.imagesResult img {
+	max-width: 200px;
+	max-height: 200px;
+}
