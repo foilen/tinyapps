@@ -1,0 +1,36 @@
+default
+{
+    state_entry()
+    {
+        
+    }
+    
+    on_rez(integer start_param){
+        if (start_param == 0) {
+            llOwnerSay("Never Die");
+        } else {
+            llSetTimerEvent(start_param);
+            llOwnerSay("I will die in " + (string)start_param + " seconds");
+        }
+    }
+
+    timer() {
+          state kill;
+    }
+}
+
+state kill {
+    state_entry() {
+        llParticleSystem([PSYS_PART_FLAGS, PSYS_PART_EMISSIVE_MASK|PSYS_PART_BOUNCE_MASK,
+            PSYS_SRC_PATTERN, PSYS_SRC_PATTERN_EXPLODE,
+            PSYS_PART_START_COLOR, <1,0,0>,
+            PSYS_SRC_BURST_PART_COUNT, 1,
+            PSYS_SRC_BURST_RADIUS, 1.0
+          ]);
+        llSetTimerEvent(10);
+    }
+    
+    timer() {
+        llDie();
+    }
+}

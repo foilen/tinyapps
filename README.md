@@ -17,4 +17,5 @@ Applications:
 * FreenetKnowledge: A local web search engine for Freenet.
 * LinksValidator: Check all the links on one root website to see if some are missing.
 * Savior: A library and a gui to make backups.
+* SecondLifeBuilerHelper: Create the skeleton of your buildings with this application and it will create a script that will spawn the walls, floors and stairs.
 * UpdateWatcher: This is a program that checks the filesystem for any change and run the command. It supports to have a quiet period.
