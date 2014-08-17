@@ -73,7 +73,7 @@ llRezObject("floor", llGetPos() + <6.0,-2.0,0.0> + (i%2)*<0.0,2.0,0.0>, <0,0,0>,
 
 The goal is to send this parameter to the raised parts so that a second script could do special actions. For example, it can represent the time in seconds that the piece will exist before being automatically deleted. You just need to copy the following script in your walls, floors and steps. After 60 seconds, a red explosion will destroy your blocs one by one.
 
-[Click here to get the script](https://github.com/provirus/tinyapps/tree/master/SecondLifeBuilerHelper/lsl-scripts/scriptkiller.txt)
+[Click here to get the script](https://raw.githubusercontent.com/provirus/tinyapps/master/SecondLifeBuilerHelper/lsl-scripts/scriptkiller.txt)
 
 Do not forget that you can change the value of live to keep your building longer.
 This script is very useful when we want to test an architecture in a sandbox without needing to bother to delete our objects before leaving. 
