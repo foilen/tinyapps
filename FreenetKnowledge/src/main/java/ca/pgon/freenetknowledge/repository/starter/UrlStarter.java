@@ -28,71 +28,67 @@ import ca.pgon.freenetknowledge.repository.manager.UrlManager;
 import ca.pgon.freenetknowledge.repository.manager.exception.RetryException;
 
 /**
- * This class cleans the Url table at startup and add some default urls if none
- * are presents.
- * 
- * @author Simon Levesque
- * 
+ * This class cleans the Url table at startup and add some default urls if none are presents.
  */
 public class UrlStarter implements Starter {
 
-	static private final Logger logger = Logger.getLogger(UrlStarter.class.getName());
+    static private final Logger logger = Logger.getLogger(UrlStarter.class.getName());
 
-	@Autowired
-	private UrlDao urlDao;
+    @Autowired
+    private UrlDao urlDao;
 
-	@Autowired
-	private UrlManager urlManager;
+    @Autowired
+    private UrlManager urlManager;
 
-	private String[] defaultUrls;
+    private String[] defaultUrls;
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@PostConstruct
-	@Override
-	public void startup() {
-		// Reset the currently visiting urls
-		logger.info("Reseting the currently visiting urls");
-		urlDao.resetVisiting();
+    /**
+     * {@inheritDoc}
+     */
+    @PostConstruct
+    @Override
+    public void startup() {
+        // Reset the currently visiting urls
+        logger.info("Reseting the currently visiting urls");
+        urlDao.resetVisiting();
 
-		// Check how many urls there are
-		long count = urlDao.getCount();
-		logger.log(Level.INFO, "There are currently {0} urls in the DB", count);
+        // Check how many urls there are
+        long count = urlDao.getCount();
+        logger.log(Level.INFO, "There are currently {0} urls in the DB", count);
 
-		// If none, create some
-		if (count == 0) {
-			logger.info("Since there are no urls in the DB, creating some");
+        // If none, create some
+        if (count == 0) {
+            logger.info("Since there are no urls in the DB, creating some");
 
-			if (defaultUrls != null) {
-				for (String url : defaultUrls) {
-					try {
-						urlManager.createURL(url);
-					} catch (RetryException e) {
-						// No retry for this since there are none
-					}
-				}
-			}
+            if (defaultUrls != null) {
+                for (String url : defaultUrls) {
+                    try {
+                        urlManager.createURL(url);
+                    } catch (RetryException e) {
+                        // No retry for this since there are none
+                    }
+                }
+            }
 
-			// Display the amount now
-			count = urlDao.getCount();
-			logger.log(Level.INFO, "There are currently {0} urls in the DB", count);
-		}
-	}
+            // Display the amount now
+            count = urlDao.getCount();
+            logger.log(Level.INFO, "There are currently {0} urls in the DB", count);
+        }
+    }
 
-	/**
-	 * @return the defaultUrls
-	 */
-	public String[] getDefaultUrls() {
-		return defaultUrls;
-	}
+    /**
+     * @return the defaultUrls
+     */
+    public String[] getDefaultUrls() {
+        return defaultUrls;
+    }
 
-	/**
-	 * @param defaultUrls
-	 *            the defaultUrls to set
-	 */
-	public void setDefaultUrls(String[] defaultUrls) {
-		this.defaultUrls = defaultUrls;
-	}
+    /**
+     * @param defaultUrls
+     *            the defaultUrls to set
+     */
+    public void setDefaultUrls(String[] defaultUrls) {
+        this.defaultUrls = defaultUrls;
+    }
 
 }

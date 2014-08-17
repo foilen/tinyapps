@@ -24,50 +24,47 @@ import java.util.Properties;
 
 /**
  * Configure the software via property file.
- * 
- * @author Simon Levesque
- * 
  */
 public class PropertiesConfigurator implements Configurator {
 
-	private String fileName;
+    private String fileName;
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void configure(Map<String, String> configMap) {
-		if (fileName == null || configMap == null) {
-			return;
-		}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void configure(Map<String, String> configMap) {
+        if (fileName == null || configMap == null) {
+            return;
+        }
 
-		Properties properties = new Properties();
-		try {
-			properties.load(new FileInputStream(fileName));
-			for (Entry<Object, Object> entry : properties.entrySet()) {
-				String key = (String) entry.getKey();
-				String value = (String) entry.getValue();
+        Properties properties = new Properties();
+        try {
+            properties.load(new FileInputStream(fileName));
+            for (Entry<Object, Object> entry : properties.entrySet()) {
+                String key = (String) entry.getKey();
+                String value = (String) entry.getValue();
 
-				configMap.put(key, value);
-			}
-		} catch (IOException e) {
-			return;
-		}
+                configMap.put(key, value);
+            }
+        } catch (IOException e) {
+            return;
+        }
 
-	}
+    }
 
-	/**
-	 * @return the fileName
-	 */
-	public String getFileName() {
-		return fileName;
-	}
+    /**
+     * @return the fileName
+     */
+    public String getFileName() {
+        return fileName;
+    }
 
-	/**
-	 * @param fileName
-	 *            the fileName to set
-	 */
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
+    /**
+     * @param fileName
+     *            the fileName to set
+     */
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
 }

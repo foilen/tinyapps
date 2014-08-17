@@ -18,11 +18,8 @@ package ca.pgon.chaincommander.modes;
 
 /**
  * Some constant names for nodes.
- * 
- * @author Simon Levesque
- * 
  */
 public class ModeConstants {
-	public static final String MASTER = "master";
-	public static final String SLAVE = "slave";
+    public static final String MASTER = "master";
+    public static final String SLAVE = "slave";
 }

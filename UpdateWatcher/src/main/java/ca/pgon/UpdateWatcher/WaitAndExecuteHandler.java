@@ -25,9 +25,6 @@ import ca.pgon.st.light7.filesystemupdatewatcher.FileSystemUpdateHandler;
 
 /**
  * Waits a certain amount of time after the last event to execute a command.
- * 
- * @author Simon Levesque
- * 
  */
 public class WaitAndExecuteHandler extends Thread implements FileSystemUpdateHandler {
 

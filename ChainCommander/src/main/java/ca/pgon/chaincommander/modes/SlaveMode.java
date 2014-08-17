@@ -18,9 +18,6 @@ package ca.pgon.chaincommander.modes;
 
 /**
  * The slave node mode. It will connect to a master or another slave.
- * 
- * @author Simon Levesque
- * 
  */
 public class SlaveMode implements Mode {
 

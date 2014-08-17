@@ -18,9 +18,6 @@ package ca.pgon.chaincommander.modes;
 
 /**
  * The master node mode.
- * 
- * @author Simon Levesque
- * 
  */
 public class MasterMode implements Mode {
 

@@ -18,22 +18,19 @@ package ca.pgon.chaincommander.configurators.exceptions;
 
 /**
  * Thrown when the ArgumentsConfigurator has an issue parsing the arguments.
- * 
- * @author Simon Levesque
- * 
  */
 public class BadArgumentsException extends RuntimeException {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * Contructor with a message.
-	 * 
-	 * @param msg
-	 *            the message
-	 */
-	public BadArgumentsException(String msg) {
-		super(msg);
-	}
+    /**
+     * Contructor with a message.
+     * 
+     * @param msg
+     *            the message
+     */
+    public BadArgumentsException(String msg) {
+        super(msg);
+    }
 
 }

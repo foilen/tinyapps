@@ -18,28 +18,25 @@ package ca.pgon.freenetknowledge.web.knowledge.vo;
 
 /**
  * A virtual object for the content search result.
- * 
- * @author Simon Levesque
- * 
  */
 public class ContentResultVO {
-	private String link;
-	private String description;
+    private String link;
+    private String description;
 
-	public String getLink() {
-		return link;
-	}
+    public String getLink() {
+        return link;
+    }
 
-	public void setLink(String link) {
-		this.link = link;
-	}
+    public void setLink(String link) {
+        this.link = link;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
 }

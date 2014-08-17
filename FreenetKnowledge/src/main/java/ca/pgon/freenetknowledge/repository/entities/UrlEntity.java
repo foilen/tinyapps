@@ -23,128 +23,125 @@ import ca.pgon.freenetknowledge.utils.ReflexionTools;
 
 /**
  * The description of a Freenet url.
- * 
- * @author Simon Levesque
- * 
  */
 public class UrlEntity {
-	// For DB
-	private long id;
+    // For DB
+    private long id;
 
-	// The url
-	private fnType type;
-	private String hash = "";
-	private String name = "";
-	private String version = "";
-	private String path = "";
+    // The url
+    private fnType type;
+    private String hash = "";
+    private String name = "";
+    private String version = "";
+    private String path = "";
 
-	// File info
-	private String size;
+    // File info
+    private String size;
 
-	// The crawling
-	private Date last_visited;
-	private boolean error = false;
-	private boolean visiting = false;
-	private boolean visited = false;
+    // The crawling
+    private Date last_visited;
+    private boolean error = false;
+    private boolean visiting = false;
+    private boolean visited = false;
 
-	/**
-	 * To copy all the fields.
-	 * 
-	 * @param ue
-	 *            the source to copy from
-	 */
-	public void copyData(UrlEntity ue) {
-		ReflexionTools.copyGetToSet(ue, this, "type", "hash", "name", "version", "path", "size", "last_visited");
+    /**
+     * To copy all the fields.
+     * 
+     * @param ue
+     *            the source to copy from
+     */
+    public void copyData(UrlEntity ue) {
+        ReflexionTools.copyGetToSet(ue, this, "type", "hash", "name", "version", "path", "size", "last_visited");
 
-		ReflexionTools.copyIsToSet(ue, this, "error", "visiting", "visited");
-	}
+        ReflexionTools.copyIsToSet(ue, this, "error", "visiting", "visited");
+    }
 
-	public String getHash() {
-		return hash;
-	}
+    public String getHash() {
+        return hash;
+    }
 
-	public long getId() {
-		return id;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public Date getLast_visited() {
-		return last_visited;
-	}
+    public Date getLast_visited() {
+        return last_visited;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getPath() {
-		return path;
-	}
+    public String getPath() {
+        return path;
+    }
 
-	public String getSize() {
-		return size;
-	}
+    public String getSize() {
+        return size;
+    }
 
-	public fnType getType() {
-		return type;
-	}
+    public fnType getType() {
+        return type;
+    }
 
-	public String getVersion() {
-		return version;
-	}
+    public String getVersion() {
+        return version;
+    }
 
-	public boolean isError() {
-		return error;
-	}
+    public boolean isError() {
+        return error;
+    }
 
-	public boolean isVisited() {
-		return visited;
-	}
+    public boolean isVisited() {
+        return visited;
+    }
 
-	public boolean isVisiting() {
-		return visiting;
-	}
+    public boolean isVisiting() {
+        return visiting;
+    }
 
-	public void setError(boolean error) {
-		this.error = error;
-	}
+    public void setError(boolean error) {
+        this.error = error;
+    }
 
-	public void setHash(String hash) {
-		this.hash = hash;
-	}
+    public void setHash(String hash) {
+        this.hash = hash;
+    }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public void setLast_visited(Date last_visited) {
-		this.last_visited = last_visited;
-	}
+    public void setLast_visited(Date last_visited) {
+        this.last_visited = last_visited;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setPath(String path) {
-		this.path = path;
-	}
+    public void setPath(String path) {
+        this.path = path;
+    }
 
-	public void setSize(String size) {
-		this.size = size;
-	}
+    public void setSize(String size) {
+        this.size = size;
+    }
 
-	public void setType(fnType type) {
-		this.type = type;
-	}
+    public void setType(fnType type) {
+        this.type = type;
+    }
 
-	public void setVersion(String version) {
-		this.version = version;
-	}
+    public void setVersion(String version) {
+        this.version = version;
+    }
 
-	public void setVisited(boolean visited) {
-		this.visited = visited;
-	}
+    public void setVisited(boolean visited) {
+        this.visited = visited;
+    }
 
-	public void setVisiting(boolean visiting) {
-		this.visiting = visiting;
-	}
+    public void setVisiting(boolean visiting) {
+        this.visiting = visiting;
+    }
 
 }

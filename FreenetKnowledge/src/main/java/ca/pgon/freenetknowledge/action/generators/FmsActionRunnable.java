@@ -29,9 +29,6 @@ import ca.pgon.freenetknowledge.utils.URLUtils;
 
 /**
  * This class is checking all of FMS forums and get the new links it can from it.
- * 
- * @author Simon Levesque
- * 
  */
 public class FmsActionRunnable implements Runnable {
     static private final Logger logger = Logger.getLogger(FmsActionRunnable.class.getName());

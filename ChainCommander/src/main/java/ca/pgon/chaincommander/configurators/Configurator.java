@@ -20,17 +20,14 @@ import java.util.Map;
 
 /**
  * To configure the application's instance.
- * 
- * @author Simon Levesque
- * 
  */
 public interface Configurator {
 
-	/**
-	 * Asks to configure the application.
-	 * 
-	 * @param configMap
-	 *            the current configuration that will be updated
-	 */
-	void configure(Map<String, String> configMap);
+    /**
+     * Asks to configure the application.
+     * 
+     * @param configMap
+     *            the current configuration that will be updated
+     */
+    void configure(Map<String, String> configMap);
 }

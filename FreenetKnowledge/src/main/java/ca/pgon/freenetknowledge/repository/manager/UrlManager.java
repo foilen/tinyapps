@@ -21,31 +21,28 @@ import ca.pgon.freenetknowledge.repository.manager.exception.RetryException;
 
 /**
  * To manage the url in the multiple DAOs.
- * 
- * @author Simon Levesque
- * 
  */
 public interface UrlManager {
-	/**
-	 * Parse a url and create a URLEntity.
-	 * 
-	 * @param url
-	 *            the url
-	 * @return the created URLEntity
-	 * @throws RetryException
-	 *             ask to retry since it already exists
-	 */
-	UrlEntity createURL(String url) throws RetryException;
+    /**
+     * Parse a url and create a URLEntity.
+     * 
+     * @param url
+     *            the url
+     * @return the created URLEntity
+     * @throws RetryException
+     *             ask to retry since it already exists
+     */
+    UrlEntity createURL(String url) throws RetryException;
 
-	/**
-	 * Persist the given URLEntity.
-	 * 
-	 * @param ue
-	 *            the URLEntity
-	 * @throws RetryException
-	 *             ask to retry since it already exists
-	 */
-	void createURL(UrlEntity ue) throws RetryException;
+    /**
+     * Persist the given URLEntity.
+     * 
+     * @param ue
+     *            the URLEntity
+     * @throws RetryException
+     *             ask to retry since it already exists
+     */
+    void createURL(UrlEntity ue) throws RetryException;
 
-	// TODO Future - Add a delete
+    // TODO Future - Add a delete
 }

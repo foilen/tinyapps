@@ -18,32 +18,29 @@ package ca.pgon.freenetknowledge.action;
 
 /**
  * This class will populate the ActionController with new items indefinitely.
- * 
- * @author Simon Levesque
- * 
  */
 public class ActionControllerFillerThread extends Thread {
 
-	private ActionController actionController;
+    private ActionController actionController;
 
-	/**
-	 * The constructor.
-	 * 
-	 * @param actionController
-	 *            the ActionController that created it.
-	 */
-	public ActionControllerFillerThread(ActionController actionController) {
-		this.actionController = actionController;
-	}
+    /**
+     * The constructor.
+     * 
+     * @param actionController
+     *            the ActionController that created it.
+     */
+    public ActionControllerFillerThread(ActionController actionController) {
+        this.actionController = actionController;
+    }
 
-	/**
-	 * This method will request the creation of new actions indefinitely.
-	 */
-	@Override
-	public void run() {
-		while (true) {
-			actionController.fill();
-		}
-	}
+    /**
+     * This method will request the creation of new actions indefinitely.
+     */
+    @Override
+    public void run() {
+        while (true) {
+            actionController.fill();
+        }
+    }
 
 }

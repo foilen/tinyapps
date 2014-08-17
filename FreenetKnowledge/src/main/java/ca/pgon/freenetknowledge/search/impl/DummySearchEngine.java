@@ -25,25 +25,22 @@ import ca.pgon.freenetknowledge.search.SearchResultEntry;
 
 /**
  * This dummy class will not do anything to save data.
- * 
- * @author Simon Levesque
- * 
  */
 public class DummySearchEngine implements SearchEngine {
 
-	@Override
-	public void addDescription(UrlEntity forURL, UrlEntity refererURL, String content) {
+    @Override
+    public void addDescription(UrlEntity forURL, UrlEntity refererURL, String content) {
 
-	}
+    }
 
-	@Override
-	public void removeAllDescriptionsFromReferer(UrlEntity refererURL) {
+    @Override
+    public void removeAllDescriptionsFromReferer(UrlEntity refererURL) {
 
-	}
+    }
 
-	@Override
-	public List<SearchResultEntry> searchTerm(String term) {
-		return new ArrayList<SearchResultEntry>();
-	}
+    @Override
+    public List<SearchResultEntry> searchTerm(String term) {
+        return new ArrayList<SearchResultEntry>();
+    }
 
 }

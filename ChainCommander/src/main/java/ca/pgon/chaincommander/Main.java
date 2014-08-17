@@ -26,38 +26,35 @@ import ca.pgon.chaincommander.configurators.PropertiesConfigurator;
 
 /**
  * The entry point of the jar.
- * 
- * @author Simon Levesque
- * 
  */
 public class Main {
 
-	private static final String PROPERTIES_FILE_NAME = "chaincommander.properties";
+    private static final String PROPERTIES_FILE_NAME = "chaincommander.properties";
 
-	/**
-	 * Main entry point.
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// Configure the application
-		Map<String, String> configMap = new ConcurrentHashMap<String, String>();
+    /**
+     * Main entry point.
+     * 
+     * @param args
+     */
+    public static void main(String[] args) {
+        // Configure the application
+        Map<String, String> configMap = new ConcurrentHashMap<String, String>();
 
-		DefaultConfigurator defaultConfigurator = new DefaultConfigurator();
-		defaultConfigurator.configure(configMap);
+        DefaultConfigurator defaultConfigurator = new DefaultConfigurator();
+        defaultConfigurator.configure(configMap);
 
-		PropertiesConfigurator propertiesConfigurator = new PropertiesConfigurator();
-		propertiesConfigurator.setFileName(PROPERTIES_FILE_NAME);
-		propertiesConfigurator.configure(configMap);
+        PropertiesConfigurator propertiesConfigurator = new PropertiesConfigurator();
+        propertiesConfigurator.setFileName(PROPERTIES_FILE_NAME);
+        propertiesConfigurator.configure(configMap);
 
-		ArgumentsConfigurator argumentsConfigurator = new ArgumentsConfigurator();
-		argumentsConfigurator.configure(configMap);
+        ArgumentsConfigurator argumentsConfigurator = new ArgumentsConfigurator();
+        argumentsConfigurator.configure(configMap);
 
-		// Validate that we have all the needed parameters
-		if (!ConfigManager.validateAllConfigured(configMap)) {
-			System.err.println("Missing some mandatory properties");
-			return;
-		}
-	}
+        // Validate that we have all the needed parameters
+        if (!ConfigManager.validateAllConfigured(configMap)) {
+            System.err.println("Missing some mandatory properties");
+            return;
+        }
+    }
 
 }

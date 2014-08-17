@@ -27,9 +27,6 @@ import javax.annotation.PostConstruct;
 
 /**
  * The action controller is a Bean that executes actions indefinitely. It is using an ActionGenerator to always fill it with new actions.
- * 
- * @author Simon Levesque
- * 
  */
 public class ActionController {
     private static final Logger logger = Logger.getLogger(ActionController.class.getName());

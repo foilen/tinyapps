@@ -21,54 +21,51 @@ import ca.pgon.freenetknowledge.repository.entities.UrlEntity;
 
 /**
  * The DAO for the Freenet url.
- * 
- * @author Simon Levesque
- * 
  */
 public interface UrlDao {
 
-	/**
-	 * Persist the given URLEntity.
-	 * 
-	 * @param ue
-	 *            the URLEntity
-	 */
-	void createURL(UrlEntity ue);
+    /**
+     * Persist the given URLEntity.
+     * 
+     * @param ue
+     *            the URLEntity
+     */
+    void createURL(UrlEntity ue);
 
-	void deleteUrl(long urlId);
+    void deleteUrl(long urlId);
 
-	UrlEntity findSimilar(fnType type, String hash, String name, String path);
+    UrlEntity findSimilar(fnType type, String hash, String name, String path);
 
-	UrlEntity get(long urlId);
+    UrlEntity get(long urlId);
 
-	/**
-	 * Tells how many Urls are present in the DB.
-	 * 
-	 * @return the amount of urls
-	 */
-	long getCount();
+    /**
+     * Tells how many Urls are present in the DB.
+     * 
+     * @return the amount of urls
+     */
+    long getCount();
 
-	long getErrorCount();
+    long getErrorCount();
 
-	UrlEntity getNextToVisit();
+    UrlEntity getNextToVisit();
 
-	/**
-	 * Tells how many Urls were never visited.
-	 * 
-	 * @return the amount of urls
-	 */
-	long getToVisitCount();
+    /**
+     * Tells how many Urls were never visited.
+     * 
+     * @return the amount of urls
+     */
+    long getToVisitCount();
 
-	long getVisitedCount();
+    long getVisitedCount();
 
-	void resetErrors();
+    void resetErrors();
 
-	void resetVisited();
+    void resetVisited();
 
-	/**
-	 * Set all the currently visiting url to false.
-	 */
-	void resetVisiting();
+    /**
+     * Set all the currently visiting url to false.
+     */
+    void resetVisiting();
 
-	void updateURLignoringVersionning(UrlEntity ue);
+    void updateURLignoringVersionning(UrlEntity ue);
 }

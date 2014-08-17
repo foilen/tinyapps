@@ -28,9 +28,6 @@ import ca.pgon.freenetknowledge.web.knowledge.vo.ContentResultVO;
 
 /**
  * The populator for the content search result.
- * 
- * @author Simon Levesque
- * 
  */
 @Component
 public class ContentResultVOPopulator {

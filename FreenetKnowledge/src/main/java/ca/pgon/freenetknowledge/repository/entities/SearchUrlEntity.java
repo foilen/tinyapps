@@ -18,45 +18,42 @@ package ca.pgon.freenetknowledge.repository.entities;
 
 /**
  * The full url of the URLEntity.
- * 
- * @author Simon Levesque
- * 
  */
 public class SearchUrlEntity {
-	// For DB
-	private long id;
+    // For DB
+    private long id;
 
-	// The url
-	private String fullUrl;
+    // The url
+    private String fullUrl;
 
-	/**
-	 * @return the id
-	 */
-	public long getId() {
-		return id;
-	}
+    /**
+     * @return the id
+     */
+    public long getId() {
+        return id;
+    }
 
-	/**
-	 * @param id
-	 *            the id to set
-	 */
-	public void setId(long id) {
-		this.id = id;
-	}
+    /**
+     * @param id
+     *            the id to set
+     */
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	/**
-	 * @return the fullUrl
-	 */
-	public String getFullUrl() {
-		return fullUrl;
-	}
+    /**
+     * @return the fullUrl
+     */
+    public String getFullUrl() {
+        return fullUrl;
+    }
 
-	/**
-	 * @param fullUrl
-	 *            the fullUrl to set
-	 */
-	public void setFullUrl(String fullUrl) {
-		this.fullUrl = fullUrl;
-	}
+    /**
+     * @param fullUrl
+     *            the fullUrl to set
+     */
+    public void setFullUrl(String fullUrl) {
+        this.fullUrl = fullUrl;
+    }
 
 }

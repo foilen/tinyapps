@@ -16,12 +16,8 @@
  */
 package ca.pgon.chaincommander.modes;
 
-// TODO Mode
 /**
  * To choose which type of node this instance is.
- * 
- * @author Simon Levesque
- * 
  */
 public interface Mode {
 

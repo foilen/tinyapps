@@ -25,66 +25,54 @@ import org.junit.Test;
 
 import ca.pgon.chaincommander.modes.ModeConstants;
 
-/**
- * @author Simon Levesque
- * 
- */
 public class ConfigManagerTest {
 
-	@Test
-	public void testGet100Percent() {
-		new ConfigManager();
-	}
+    @Test
+    public void testGet100Percent() {
+        new ConfigManager();
+    }
 
-	/**
-	 * Test method for
-	 * {@link ca.pgon.chaincommander.configurators.ConfigManager#validateAllConfigured(java.util.Map)}
-	 * .
-	 */
-	@Test
-	public void testValidateAllConfiguredNone() {
-		Map<String, String> configMap = new HashMap<String, String>();
-		Assert.assertFalse(ConfigManager.validateAllConfigured(configMap));
-	}
+    /**
+     * Test method for {@link ca.pgon.chaincommander.configurators.ConfigManager#validateAllConfigured(java.util.Map)} .
+     */
+    @Test
+    public void testValidateAllConfiguredNone() {
+        Map<String, String> configMap = new HashMap<String, String>();
+        Assert.assertFalse(ConfigManager.validateAllConfigured(configMap));
+    }
 
-	/**
-	 * Test method for
-	 * {@link ca.pgon.chaincommander.configurators.ConfigManager#validateAllConfigured(java.util.Map)}
-	 * .
-	 */
-	@Test
-	public void testValidateAllConfiguredMaster() {
-		Map<String, String> configMap = new HashMap<String, String>();
-		configMap.put(ConfigManager.MODE, ModeConstants.MASTER);
-		configMap.put(ConfigManager.PORT, "1234");
-		Assert.assertTrue(ConfigManager.validateAllConfigured(configMap));
-	}
+    /**
+     * Test method for {@link ca.pgon.chaincommander.configurators.ConfigManager#validateAllConfigured(java.util.Map)} .
+     */
+    @Test
+    public void testValidateAllConfiguredMaster() {
+        Map<String, String> configMap = new HashMap<String, String>();
+        configMap.put(ConfigManager.MODE, ModeConstants.MASTER);
+        configMap.put(ConfigManager.PORT, "1234");
+        Assert.assertTrue(ConfigManager.validateAllConfigured(configMap));
+    }
 
-	/**
-	 * Test method for
-	 * {@link ca.pgon.chaincommander.configurators.ConfigManager#validateAllConfigured(java.util.Map)}
-	 * .
-	 */
-	@Test
-	public void testValidateAllConfiguredSlaveFail() {
-		Map<String, String> configMap = new HashMap<String, String>();
-		configMap.put(ConfigManager.MODE, ModeConstants.SLAVE);
-		configMap.put(ConfigManager.PORT, "1234");
-		Assert.assertFalse(ConfigManager.validateAllConfigured(configMap));
-	}
+    /**
+     * Test method for {@link ca.pgon.chaincommander.configurators.ConfigManager#validateAllConfigured(java.util.Map)} .
+     */
+    @Test
+    public void testValidateAllConfiguredSlaveFail() {
+        Map<String, String> configMap = new HashMap<String, String>();
+        configMap.put(ConfigManager.MODE, ModeConstants.SLAVE);
+        configMap.put(ConfigManager.PORT, "1234");
+        Assert.assertFalse(ConfigManager.validateAllConfigured(configMap));
+    }
 
-	/**
-	 * Test method for
-	 * {@link ca.pgon.chaincommander.configurators.ConfigManager#validateAllConfigured(java.util.Map)}
-	 * .
-	 */
-	@Test
-	public void testValidateAllConfiguredSlave() {
-		Map<String, String> configMap = new HashMap<String, String>();
-		configMap.put(ConfigManager.MODE, ModeConstants.SLAVE);
-		configMap.put(ConfigManager.MASTER_NODE_INFO, "127.0.0.1:1234");
-		configMap.put(ConfigManager.PORT, "1234");
-		Assert.assertTrue(ConfigManager.validateAllConfigured(configMap));
-	}
+    /**
+     * Test method for {@link ca.pgon.chaincommander.configurators.ConfigManager#validateAllConfigured(java.util.Map)} .
+     */
+    @Test
+    public void testValidateAllConfiguredSlave() {
+        Map<String, String> configMap = new HashMap<String, String>();
+        configMap.put(ConfigManager.MODE, ModeConstants.SLAVE);
+        configMap.put(ConfigManager.MASTER_NODE_INFO, "127.0.0.1:1234");
+        configMap.put(ConfigManager.PORT, "1234");
+        Assert.assertTrue(ConfigManager.validateAllConfigured(configMap));
+    }
 
 }
