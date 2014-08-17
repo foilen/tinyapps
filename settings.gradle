@@ -1,5 +1,6 @@
 include 'ChainCommander'
 include 'FreenetKnowledge'
+include 'LinksValidator'
 include 'Savior:saviorlib'
 include 'Savior:saviorgui'
 include 'UpdateWatcher'
