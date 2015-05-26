@@ -1,6 +1,6 @@
 allprojects {
     apply plugin: 'eclipse'
-    apply plugin:'application'
+    apply plugin: 'application'
 
     group = 'com.foilen'
     
