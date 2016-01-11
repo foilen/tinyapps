@@ -1,0 +1,13 @@
+version = 1.0
+mainClassName = 'com.foilen.gnucashbulk.App'
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+dependencies {
+    compile 'com.foilen:jl-smalltools:2015.12.20'
+    compile 'org.springframework:spring-jdbc:4.2.4.RELEASE'
+    compile 'org.xerial:sqlite-jdbc:3.8.11.2'
+    
+    testCompile 'junit:junit:4.11'
+}

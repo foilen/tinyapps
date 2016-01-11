@@ -16,6 +16,7 @@ Applications:
 * AmazonS3MassContentType: An application to quickly update all the content type of a bucket that are not already correctly set.
 * ChainCommander: Upload some files with clients in chain. When the client connects to the server, the server will tell him the last client connected so that he can download from that one.
 * FreenetKnowledge: A local web search engine for Freenet.
+* GnucashBulk: Execute some commands on a Gnucash file.
 * LinksValidator: Check all the links on one root website to see if some are missing.
 * Savior: A library and a gui to make backups.
 * SecondLifeBuilerHelper: Create the skeleton of your buildings with this application and it will create a script that will spawn the walls, floors and stairs.
