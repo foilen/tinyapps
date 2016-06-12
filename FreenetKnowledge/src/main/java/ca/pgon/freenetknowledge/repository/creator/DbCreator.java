@@ -108,7 +108,7 @@ public class DbCreator extends JdbcTemplate {
      * @return true if it was executed
      */
     private boolean isAlreadyExecuted(String sqlFile) {
-        int count = queryForInt("SELECT count(*) FROM Executed WHERE file=?", sqlFile);
+        int count = queryForObject("SELECT count(*) FROM Executed WHERE file=?", new Object[] { sqlFile }, Integer.class);
 
         return count == 1;
     }

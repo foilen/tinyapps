@@ -102,12 +102,12 @@ public class JDBCUrlDaoImpl extends JdbcTemplate implements UrlDao {
 
     @Override
     public long getCount() {
-        return queryForLong("SELECT count(*) FROM UrlEntity");
+        return queryForObject("SELECT count(*) FROM UrlEntity", Long.class);
     }
 
     @Override
     public long getErrorCount() {
-        return queryForLong("SELECT count(*) FROM UrlEntity WHERE error = 1");
+        return queryForObject("SELECT count(*) FROM UrlEntity WHERE error = 1", Long.class);
     }
 
     @Override
@@ -128,12 +128,12 @@ public class JDBCUrlDaoImpl extends JdbcTemplate implements UrlDao {
 
     @Override
     public long getToVisitCount() {
-        return queryForLong("SELECT count(*) FROM UrlEntity WHERE visiting = 0 AND visited = 0 AND error = 0");
+        return queryForObject("SELECT count(*) FROM UrlEntity WHERE visiting = 0 AND visited = 0 AND error = 0", Long.class);
     }
 
     @Override
     public long getVisitedCount() {
-        return queryForLong("SELECT count(*) FROM UrlEntity WHERE visited = 1");
+        return queryForObject("SELECT count(*) FROM UrlEntity WHERE visited = 1", Long.class);
     }
 
     /**
