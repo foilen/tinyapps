@@ -35,6 +35,7 @@ import javax.swing.table.DefaultTableModel;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import com.foilen.gnucashbulk.action.DeleteLatestsYearAction;
 import com.foilen.gnucashbulk.action.MergeAllPreviousYearsAction;
 import com.foilen.gnucashbulk.rowmapper.StringRowMapper;
 
@@ -50,6 +51,7 @@ public class Principal extends JFrame {
 
     private String latestYear;
     private JButton btnMergeAllPrevious;
+    private JButton btnDeleteLatestYear;
 
     /**
      * Create the frame.
@@ -77,12 +79,23 @@ public class Principal extends JFrame {
         btnMergeAllPrevious = new JButton("Merge all previous years transactions into an opening balance");
         final Principal principal = this;
         btnMergeAllPrevious.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 MergeAllPreviousYearsAction action = new MergeAllPreviousYearsAction(principal, jdbcTemplate, latestYear);
                 action.execute();
             }
         });
         contentPane.add(btnMergeAllPrevious);
+
+        btnDeleteLatestYear = new JButton("Delete all the transactions in the latest year");
+        btnDeleteLatestYear.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DeleteLatestsYearAction action = new DeleteLatestsYearAction(principal, jdbcTemplate, latestYear);
+                action.execute();
+            }
+        });
+        contentPane.add(btnDeleteLatestYear);
 
         refreshAll();
     }
@@ -127,7 +140,7 @@ public class Principal extends JFrame {
         if (countPerYear.isEmpty()) {
             latestYear = null;
         } else {
-            latestYear = (String) countPerYear.keySet().stream().sorted().collect(Collectors.toList()).get(countPerYear.size() - 1);
+            latestYear = countPerYear.keySet().stream().sorted().collect(Collectors.toList()).get(countPerYear.size() - 1);
         }
     }
 
