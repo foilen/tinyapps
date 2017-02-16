@@ -17,103 +17,128 @@
 package slbh.lang;
 
 public class French implements Language {
+    @Override
     public String buttonAddFloorAfter() {
-        return "Ajouter Ètage aprËs";
+        return "Ajouter √©tage apr√®s";
     }
 
+    @Override
     public String buttonAddFloorBefore() {
-        return "Ajouter Ètage avant";
+        return "Ajouter √©tage avant";
     }
 
+    @Override
     public String buttonCancel() {
         return "Annuler";
     }
 
+    @Override
     public String buttonProperties() {
-        return "PropriÈtÈs";
+        return "Propri√©t√©s";
     }
 
+    @Override
     public String buttonRemoveFloor() {
-        return "Enlever l'Ètage";
+        return "Enlever l'√©tage";
     }
 
+    @Override
     public String buttonToClipboard() {
         return "Copier au presse-papier";
     }
 
+    @Override
     public String labelBackgroundFloor() {
-        return "…tage en fond: ";
+        return "√âtage en fond: ";
     }
 
+    @Override
     public String labelCurrentFloor() {
-        return "…tage courant: ";
+        return "√âtage courant: ";
     }
 
+    @Override
     public String labelObjects() {
         return "Objet";
     }
 
+    @Override
     public String lang() {
-        return "Francais";
+        return "Fran√ßais";
     }
 
+    @Override
     public String menuFile() {
         return "Fichier";
     }
 
+    @Override
     public String menuLanguage() {
         return "Langue";
     }
 
+    @Override
     public String menuNew() {
         return "Nouveau";
     }
 
+    @Override
     public String menuOpen() {
         return "Ouvrir";
     }
 
+    @Override
     public String menuSave() {
         return "Enregistrer";
     }
 
+    @Override
     public String objectFloor() {
         return "Plancher";
     }
 
+    @Override
     public String objectStairsE() {
         return "Escalier Est";
     }
 
+    @Override
     public String objectStairsN() {
         return "Escalier Nord";
     }
 
+    @Override
     public String objectStairsS() {
         return "Escalier Sud";
     }
 
+    @Override
     public String objectStairsW() {
         return "Escalier Ouest";
     }
 
+    @Override
     public String objectStart() {
-        return "Position de dÈpart";
+        return "Position de d√©part";
     }
 
+    @Override
     public String objectWall() {
         return "Mur";
     }
 
+    @Override
     public String propertiesDeltaXY() {
         return "Largeur (m)";
     }
 
+    @Override
     public String propertiesDeltaZ() {
         return "Hauteur (m)";
     }
 
+    @Override
     public String propertiesRepeat() {
-        return "RÈpÈter la figure (tour de babel)";
+        return "R√©p√©ter la figure (tour de babel)";
     }
 }

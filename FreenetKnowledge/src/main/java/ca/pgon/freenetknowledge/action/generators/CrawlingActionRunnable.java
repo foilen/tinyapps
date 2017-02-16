@@ -131,6 +131,8 @@ public class CrawlingActionRunnable implements Runnable {
                         rootUrl.setVisited(false);
                         AddURL(rootUrl);
                     }
+                default: // Nothing to add
+                    break;
                 }
             } catch (RetryException e) {
                 retry = true;

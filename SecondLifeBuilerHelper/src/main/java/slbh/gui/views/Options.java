@@ -39,9 +39,9 @@ import slbh.scene.Scene;
 
 @SuppressWarnings("serial")
 public class Options extends JPanel implements ActionListener {
-    private JList editFloorsList;
-    private JList backFloorsList;
-    private DefaultListModel floorsModel = new DefaultListModel();
+    private JList<Integer> editFloorsList;
+    private JList<Integer> backFloorsList;
+    private DefaultListModel<Integer> floorsModel = new DefaultListModel<>();
     private JButton floorCreateB;
     private JButton floorCreateA;
     private JButton floorRemove;
@@ -62,21 +62,22 @@ public class Options extends JPanel implements ActionListener {
         reloadLang();
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().compareTo("floorCreateB") == 0) {
-            int current = (Integer) editFloorsList.getSelectedValue();
+            int current = editFloorsList.getSelectedValue();
             refreshFloorsList(myViewport.createFloor(current, false));
             return;
         }
 
         if (e.getActionCommand().compareTo("floorCreateA") == 0) {
-            int current = (Integer) editFloorsList.getSelectedValue();
+            int current = editFloorsList.getSelectedValue();
             refreshFloorsList(myViewport.createFloor(current, true));
             return;
         }
 
         if (e.getActionCommand().compareTo("floorRemove") == 0) {
-            int current = (Integer) editFloorsList.getSelectedValue();
+            int current = editFloorsList.getSelectedValue();
             refreshFloorsList(myViewport.removeFloor(current));
             return;
         }
@@ -120,12 +121,12 @@ public class Options extends JPanel implements ActionListener {
             removeAll();
 
         // Create
-        editFloorsList = new JList(floorsModel);
+        editFloorsList = new JList<>(floorsModel);
         editFloorsList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         editFloorsList.setLayoutOrientation(JList.VERTICAL);
         JScrollPane floorsScroller = new JScrollPane(editFloorsList);
 
-        backFloorsList = new JList(floorsModel);
+        backFloorsList = new JList<>(floorsModel);
         backFloorsList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         backFloorsList.setLayoutOrientation(JList.VERTICAL);
         JScrollPane backFloorsScroller = new JScrollPane(backFloorsList);
@@ -256,7 +257,7 @@ public class Options extends JPanel implements ActionListener {
                 Object selectedFloor = backFloorsList.getSelectedValue();
                 if (selectedFloor != null) {
                     myViewport.changeBackFloor((Integer) selectedFloor);
-                    backOffset = (Integer) selectedFloor - (Integer) editFloorsList.getSelectedValue();
+                    backOffset = (Integer) selectedFloor - editFloorsList.getSelectedValue();
                 }
             }
         });

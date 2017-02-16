@@ -19,8 +19,7 @@ package ca.pgon.chaincommander.configurators;
 import java.util.HashMap;
 import java.util.Map;
 
-import junit.framework.Assert;
-
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -29,16 +28,16 @@ import org.junit.Test;
  */
 public class DefaultConfiguratorTest {
 
-	/**
-	 * The defaults must be sufficient to run.
-	 */
-	@Test
-	public void testMustBeComplete() {
-		Map<String, String> configMap = new HashMap<String, String>();
-		DefaultConfigurator defaultConfigurator = new DefaultConfigurator();
-		defaultConfigurator.configure(configMap);
+    /**
+     * The defaults must be sufficient to run.
+     */
+    @Test
+    public void testMustBeComplete() {
+        Map<String, String> configMap = new HashMap<>();
+        DefaultConfigurator defaultConfigurator = new DefaultConfigurator();
+        defaultConfigurator.configure(configMap);
 
-		Assert.assertTrue(ConfigManager.validateAllConfigured(configMap));
-	}
+        Assert.assertTrue(ConfigManager.validateAllConfigured(configMap));
+    }
 
 }

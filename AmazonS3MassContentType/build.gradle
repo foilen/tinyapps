@@ -1,4 +1,6 @@
 version = 1.0
+
+apply plugin: 'application'
 mainClassName = 'ca.pgon.amazons3masscontenttype.App'
 
 dependencies {

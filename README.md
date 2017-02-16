@@ -3,11 +3,8 @@ tinyapps
 
 A couple small applications I made
 
-To compile and run:
-* gradle run
-
-To create a zip:
-* gradle distZip
+To compile and create zips in /apps/:
+* ./build.sh
 
 To load in Eclipse:
 * Simply import the projects as Gradle projects.

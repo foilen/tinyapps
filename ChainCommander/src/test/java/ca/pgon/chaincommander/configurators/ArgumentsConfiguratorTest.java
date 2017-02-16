@@ -19,8 +19,7 @@ package ca.pgon.chaincommander.configurators;
 import java.util.HashMap;
 import java.util.Map;
 
-import junit.framework.Assert;
-
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -34,14 +33,14 @@ public class ArgumentsConfiguratorTest {
     @Before
     public void setUp() {
         argumentsConfigurator = new ArgumentsConfigurator();
-        configMap = new HashMap<String, String>();
+        configMap = new HashMap<>();
     }
 
     @Test
     public void testGet100Percent() {
         String[] someArgs = new String[] { "a" };
         argumentsConfigurator.setArgs(someArgs);
-        Assert.assertEquals(someArgs, argumentsConfigurator.getArgs());
+        Assert.assertArrayEquals(someArgs, argumentsConfigurator.getArgs());
         argumentsConfigurator.configure(null);
     }
 

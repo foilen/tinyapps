@@ -1,4 +1,6 @@
 version = 1.0
+
+apply plugin: 'application'
 mainClassName = 'com.foilen.gnucashbulk.App'
 
 sourceCompatibility = '1.8'
