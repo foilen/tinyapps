@@ -1,0 +1,1 @@
+Url visited: ${visitedCount } / ${totalCount } [${percentVisited }%] (it will reset when all visited)

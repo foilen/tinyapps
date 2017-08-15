@@ -1,0 +1,4 @@
+<!-- BEGIN footer -->
+</body>
+
+</html>
