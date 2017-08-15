@@ -17,6 +17,8 @@ apply plugin: 'spring-boot'
 
 dependencies {
 
+    compile 'com.foilen:jl-smalltools:0.19.0'
+    compile 'com.google.guava:guava:23.0'
     compile 'com.h2database:h2'
     compile 'javax.servlet:jstl'
     compile 'javax.servlet.jsp:jsp-api:2.1'

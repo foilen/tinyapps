@@ -17,6 +17,7 @@
 package ca.pgon.freenetknowledge;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.sql.DataSource;
@@ -28,13 +29,17 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ConversionServiceFactoryBean;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import com.foilen.smalltools.upgrader.UpgraderTools;
+import com.foilen.smalltools.upgrader.tasks.UpgradeTask;
+import com.foilen.smalltools.upgrader.trackers.DatabaseUpgraderTracker;
 
 import ca.pgon.freenetknowledge.action.ActionController;
 import ca.pgon.freenetknowledge.action.generators.CrawlingActionGenerator;
 import ca.pgon.freenetknowledge.action.generators.FmsActionGenerator;
 import ca.pgon.freenetknowledge.freenet.IntegerToFnTypeConverter;
-import ca.pgon.freenetknowledge.repository.creator.DbCreator;
 import ca.pgon.freenetknowledge.repository.starter.UrlStarter;
 import ca.pgon.freenetknowledge.search.impl.LuceneSearchEngine;
 import ca.pgon.freenetknowledge.spiders.news.NewsUtils;
@@ -78,11 +83,17 @@ public class App {
     }
 
     @Bean
-    public DbCreator dbCreator(DataSource dataSource) {
-        DbCreator dbCreator = new DbCreator();
-        dbCreator.setDataSource(dataSource);
-        dbCreator.setSqlPrefixes(new String[] { "/ca/pgon/freenetknowledge/repository/creator/UrlEntity", "/ca/pgon/freenetknowledge/repository/creator/SearchUrlEntity" });
-        return dbCreator;
+    public UpgraderTools upgraderTools(DataSource dataSource, List<UpgradeTask> upgradeTasks) {
+        UpgraderTools upgraderTools = new UpgraderTools(upgradeTasks);
+        DatabaseUpgraderTracker upgraderTracker = new DatabaseUpgraderTracker(jdbcTemplate(dataSource));
+        upgraderTools.setDefaultUpgraderTracker(upgraderTracker);
+        upgraderTools.getUpgraderTrackerByName().put("db", upgraderTracker);
+        return upgraderTools;
+    }
+
+    @Bean
+    public JdbcTemplate jdbcTemplate(DataSource dataSource) {
+        return new JdbcTemplate(dataSource);
     }
 
     @Bean
