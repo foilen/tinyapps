@@ -175,7 +175,7 @@ public class JDBCUrlDaoImpl extends JdbcTemplate implements UrlDao {
 
     @Override
     public void resetVisiting() {
-        update("UPDATE UrlEntity SET visiting = 0");
+        update("UPDATE UrlEntity SET visiting = 0 WHERE visiting = 1");
     }
 
     @Autowired
