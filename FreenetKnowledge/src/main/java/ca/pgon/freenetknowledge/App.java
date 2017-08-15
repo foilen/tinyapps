@@ -114,10 +114,14 @@ public class App {
 
     @Bean
     public UrlStarter urlStarter() {
-        // Freenet's default directories bookmarks as of 2014-08-16
+        // Freenet's directories bookmarks as of 2017-08-14
         UrlStarter urlStarter = new UrlStarter();
-        urlStarter.setDefaultUrls(new String[] { "http://localhost:8888/USK@XJZAi25dd5y7lrxE3cHMmM-xZ-c-hlPpKLYeLC0YG5I,8XTbR1bd9RBXlX6j-OZNednsJ8Cl6EAeBBebC3jtMFU,AQACAAE/index/440/",
-                "http://localhost:8888/USK@Isel-izgllc8sr~1reXQJz1LNGLIY-voOnLWWOyagYQ,xWfr4py0YZqAQSI-BX7bolDe-kI3DW~i9xHCHd-Bu9k,AQACAAE/linkageddon/1050/" });
+        urlStarter.setDefaultUrls(new String[] { //
+                "http://127.0.0.1:8888/USK@XJZAi25dd5y7lrxE3cHMmM-xZ-c-hlPpKLYeLC0YG5I,8XTbR1bd9RBXlX6j-OZNednsJ8Cl6EAeBBebC3jtMFU,AQACAAE/index/711/", //
+                "http://127.0.0.1:8888/USK@ozMQYaCEXnlHQQggITYSIeNSxqdMknqjOIYyCdMKqJA,gJyID9FRxaM5zDql3D8-wHACAusOYa5Aag3M4tSEt~g,AQACAAE/Index/539/", //
+                "http://127.0.0.1:8888/USK@Isel-izgllc8sr~1reXQJz1LNGLIY-voOnLWWOyagYQ,xWfr4py0YZqAQSI-BX7bolDe-kI3DW~i9xHCHd-Bu9k,AQACAAE/linkageddon/1128/", //
+                "http://127.0.0.1:8888/USK@tiYrPDh~fDeH5V7NZjpp~QuubaHwgks88iwlRXXLLWA,yboLMwX1dChz8fWKjmbdtl38HR5uiCOdIUT86ohUyRg,AQACAAE/nerdageddon/247/" //
+        });
         return urlStarter;
     }
 
