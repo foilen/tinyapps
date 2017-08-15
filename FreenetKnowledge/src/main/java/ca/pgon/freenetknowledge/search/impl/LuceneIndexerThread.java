@@ -30,12 +30,12 @@ import org.apache.lucene.document.Field;
 import org.apache.lucene.document.Field.Index;
 import org.apache.lucene.document.Field.Store;
 import org.apache.lucene.index.CorruptIndexException;
-import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.IndexWriterConfig.OpenMode;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.store.Directory;
+import org.apache.lucene.store.LockObtainFailedException;
 import org.apache.lucene.store.NoSuchDirectoryException;
 
 import ca.pgon.freenetknowledge.repository.entities.UrlEntity;
@@ -93,6 +93,12 @@ public class LuceneIndexerThread extends Thread {
         }
     }
 
+    private IndexWriter genIndexWriter() throws CorruptIndexException, LockObtainFailedException, IOException {
+        IndexWriterConfig indexWriterConfig = new IndexWriterConfig(LuceneSearchEngine.LUCENE_VERSION, analyzer);
+        indexWriterConfig.setOpenMode(OpenMode.CREATE_OR_APPEND);
+        return new IndexWriter(directory, indexWriterConfig);
+    }
+
     public void queueAdding(UrlEntity forURL, UrlEntity refererURL, String content) {
         queue.add(new Entry(forURL, refererURL, content));
     }
@@ -101,12 +107,12 @@ public class LuceneIndexerThread extends Thread {
         try {
             semaphore.acquire();
 
-            IndexReader indexReader = IndexReader.open(directory, false);
             Term term = new Term(LuceneSearchEngine.INDEX_REFERER_URL, String.valueOf(refererURL.getId()));
 
-            indexReader.deleteDocuments(term);
+            IndexWriter indexWriter = genIndexWriter();
+            indexWriter.deleteDocuments(term);
 
-            indexReader.close();
+            indexWriter.close();
         } catch (NoSuchDirectoryException e) {
             // The index is empty, so not an issue
         } catch (Exception e) {
@@ -143,9 +149,7 @@ public class LuceneIndexerThread extends Thread {
                 // Open writer
                 semaphore.acquire();
 
-                IndexWriterConfig indexWriterConfig = new IndexWriterConfig(LuceneSearchEngine.LUCENE_VERSION, analyzer);
-                indexWriterConfig.setOpenMode(OpenMode.CREATE_OR_APPEND);
-                indexWriter = new IndexWriter(directory, indexWriterConfig);
+                indexWriter = genIndexWriter();
 
                 // Add at most "maxAddInIndexBeforeComputing" entries in the
                 // index before closing it
