@@ -31,168 +31,168 @@ import ca.pgon.freenetknowledge.utils.LinksUtils;
 import ca.pgon.freenetknowledge.utils.URLUtils;
 
 public class NewsCrawler extends Thread {
-	static private final Logger logger = Logger.getLogger(NewsCrawler.class.getName());
+    static private final Logger logger = Logger.getLogger(NewsCrawler.class.getName());
 
-	private boolean running;
-	private int totalMessages = 0, visitedMessages = 0;
+    private boolean running;
+    private int totalMessages = 0, visitedMessages = 0;
 
-	private NewsUtils newsUtils;
-	private URLUtils urlUtils;
-	private UrlDao urlDAO;
-	private SearchEngine searchEngine;
-	private LinksUtils linksUtils;
-	private UrlManager urlManager;
+    private NewsUtils newsUtils;
+    private URLUtils urlUtils;
+    private UrlDao urlDAO;
+    private SearchEngine searchEngine;
+    private LinksUtils linksUtils;
+    private UrlManager urlManager;
 
-	public int getTotalMessages() {
-		return totalMessages;
-	}
+    /**
+     * @return the linksUtils
+     */
+    public LinksUtils getLinksUtils() {
+        return linksUtils;
+    }
 
-	public int getVisitedMessages() {
-		return visitedMessages;
-	}
+    /**
+     * @return the newsUtils
+     */
+    public NewsUtils getNewsUtils() {
+        return newsUtils;
+    }
 
-	public boolean isRunning() {
-		return running;
-	}
+    /**
+     * @return the searchEngine
+     */
+    public SearchEngine getSearchEngine() {
+        return searchEngine;
+    }
 
-	@Override
-	public void run() {
-		running = true;
+    public int getTotalMessages() {
+        return totalMessages;
+    }
 
-		visitedMessages = 0;
-		List<String> groups = newsUtils.getAllGroups();
-		totalMessages = newsUtils.getTotalMessagesCount();
+    /**
+     * @return the urlDAO
+     */
+    public UrlDao getUrlDAO() {
+        return urlDAO;
+    }
 
-		// Visit all group
-		for (String groupName : groups) {
-			// Get all the group's messages
-			for (String article : newsUtils.getAllMessagesInGroup(groupName)) {
-				++visitedMessages;
+    /**
+     * @return the urlManager
+     */
+    public UrlManager getUrlManager() {
+        return urlManager;
+    }
 
-				boolean retry = true;
-				while (retry) {
-					retry = false;
+    /**
+     * @return the urlUtils
+     */
+    public URLUtils getUrlUtils() {
+        return urlUtils;
+    }
 
-					try {
-						// Get all the links in the article
-						List<UrlEntity> links = linksUtils.getLinksFromText(article);
-						for (UrlEntity l : links) {
-							UrlEntity existingURL = urlDAO.findSimilar(l.getType(), l.getHash(), l.getName(), l.getPath());
+    public int getVisitedMessages() {
+        return visitedMessages;
+    }
 
-							if (existingURL != null) {
-								urlUtils.merge(l, existingURL);
-								urlDAO.updateURLignoringVersionning(existingURL);
-								l = existingURL;
-							} else {
-								try {
-									urlManager.createURL(l);
-								} catch (DataIntegrityViolationException e) {
-									logger.log(Level.WARNING, "Could not create the new url {0}", urlUtils.toURL(l));
-								}
-							}
+    public boolean isRunning() {
+        return running;
+    }
 
-							// Add to the index
-							searchEngine.addDescription(l, null, article);
-						}
-					} catch (RetryException e) {
-						retry = true;
-					}
-				}
-			}
-		}
+    @Override
+    public void run() {
+        running = true;
 
-		running = false;
-		visitedMessages = totalMessages = 0;
-	}
+        visitedMessages = 0;
+        List<String> groups = newsUtils.getAllGroups();
+        totalMessages = newsUtils.getTotalMessagesCount();
 
-	/**
-	 * @return the newsUtils
-	 */
-	public NewsUtils getNewsUtils() {
-		return newsUtils;
-	}
+        // Visit all group
+        for (String groupName : groups) {
+            // Get all the group's messages
+            for (String article : newsUtils.getAllMessagesInGroup(groupName)) {
+                ++visitedMessages;
 
-	/**
-	 * @param newsUtils
-	 *            the newsUtils to set
-	 */
-	public void setNewsUtils(NewsUtils newsUtils) {
-		this.newsUtils = newsUtils;
-	}
+                boolean retry = true;
+                while (retry) {
+                    retry = false;
 
-	/**
-	 * @return the urlUtils
-	 */
-	public URLUtils getUrlUtils() {
-		return urlUtils;
-	}
+                    try {
+                        // Get all the links in the article
+                        List<UrlEntity> links = linksUtils.getLinksFromText(article);
+                        for (UrlEntity l : links) {
+                            UrlEntity existingURL = urlDAO.findSimilar(l.getType(), l.getHash(), l.getName(), l.getPath());
 
-	/**
-	 * @param urlUtils
-	 *            the urlUtils to set
-	 */
-	public void setUrlUtils(URLUtils urlUtils) {
-		this.urlUtils = urlUtils;
-	}
+                            if (existingURL != null) {
+                                urlUtils.merge(l, existingURL);
+                                urlDAO.updateURLignoringVersionning(existingURL);
+                                l = existingURL;
+                            } else {
+                                try {
+                                    urlManager.createURL(l);
+                                } catch (DataIntegrityViolationException e) {
+                                    logger.log(Level.WARNING, "Could not create the new url {0}", urlUtils.toURL(l));
+                                }
+                            }
 
-	/**
-	 * @return the urlDAO
-	 */
-	public UrlDao getUrlDAO() {
-		return urlDAO;
-	}
+                            // Add to the index
+                            searchEngine.addDescription(l, null, article);
+                        }
+                    } catch (RetryException e) {
+                        retry = true;
+                    }
+                }
+            }
+        }
 
-	/**
-	 * @param urlDAO
-	 *            the urlDAO to set
-	 */
-	public void setUrlDAO(UrlDao urlDAO) {
-		this.urlDAO = urlDAO;
-	}
+        running = false;
+        visitedMessages = totalMessages = 0;
+    }
 
-	/**
-	 * @return the searchEngine
-	 */
-	public SearchEngine getSearchEngine() {
-		return searchEngine;
-	}
+    /**
+     * @param linksUtils
+     *            the linksUtils to set
+     */
+    public void setLinksUtils(LinksUtils linksUtils) {
+        this.linksUtils = linksUtils;
+    }
 
-	/**
-	 * @param searchEngine
-	 *            the searchEngine to set
-	 */
-	public void setSearchEngine(SearchEngine searchEngine) {
-		this.searchEngine = searchEngine;
-	}
+    /**
+     * @param newsUtils
+     *            the newsUtils to set
+     */
+    public void setNewsUtils(NewsUtils newsUtils) {
+        this.newsUtils = newsUtils;
+    }
 
-	/**
-	 * @return the linksUtils
-	 */
-	public LinksUtils getLinksUtils() {
-		return linksUtils;
-	}
+    /**
+     * @param searchEngine
+     *            the searchEngine to set
+     */
+    public void setSearchEngine(SearchEngine searchEngine) {
+        this.searchEngine = searchEngine;
+    }
 
-	/**
-	 * @param linksUtils
-	 *            the linksUtils to set
-	 */
-	public void setLinksUtils(LinksUtils linksUtils) {
-		this.linksUtils = linksUtils;
-	}
+    /**
+     * @param urlDAO
+     *            the urlDAO to set
+     */
+    public void setUrlDAO(UrlDao urlDAO) {
+        this.urlDAO = urlDAO;
+    }
 
-	/**
-	 * @return the urlManager
-	 */
-	public UrlManager getUrlManager() {
-		return urlManager;
-	}
+    /**
+     * @param urlManager
+     *            the urlManager to set
+     */
+    public void setUrlManager(UrlManager urlManager) {
+        this.urlManager = urlManager;
+    }
 
-	/**
-	 * @param urlManager
-	 *            the urlManager to set
-	 */
-	public void setUrlManager(UrlManager urlManager) {
-		this.urlManager = urlManager;
-	}
+    /**
+     * @param urlUtils
+     *            the urlUtils to set
+     */
+    public void setUrlUtils(URLUtils urlUtils) {
+        this.urlUtils = urlUtils;
+    }
 
 }

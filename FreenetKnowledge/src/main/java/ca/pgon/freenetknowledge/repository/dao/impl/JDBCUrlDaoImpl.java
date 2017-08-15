@@ -48,6 +48,7 @@ public class JDBCUrlDaoImpl extends JdbcTemplate implements UrlDao {
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         update(new PreparedStatementCreator() {
+            @Override
             public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
                 PreparedStatement ps = connection.prepareStatement("INSERT INTO UrlEntity (type, hash, name, version, path, size, last_visited, error, visiting) values (?,?,?,?,?,?,?,?,?)",
                         Statement.RETURN_GENERATED_KEYS);
@@ -138,7 +139,7 @@ public class JDBCUrlDaoImpl extends JdbcTemplate implements UrlDao {
 
     /**
      * Get one object from the DB or return null if none.
-     * 
+     *
      * @param sql
      *            the query
      * @param parameters

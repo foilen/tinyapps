@@ -70,12 +70,9 @@ public class LuceneSearchEngine implements SearchEngine {
     @Autowired
     private UrlDao urlDAO;
 
-    @PostConstruct
-    public void init() throws IOException {
-        directory = new SimpleFSDirectory(new File(indexDirectory));
-        analyzer = new StandardAnalyzer(LuceneSearchEngine.LUCENE_VERSION);
-        luceneIndexerThread = new LuceneIndexerThread(maxAddInIndexBeforeComputing, directory, analyzer);
-        luceneIndexerThread.start();
+    @Override
+    public void addDescription(UrlEntity forURL, UrlEntity refererURL, String content) {
+        luceneIndexerThread.queueAdding(forURL, refererURL, content);
     }
 
     @PreDestroy
@@ -87,21 +84,16 @@ public class LuceneSearchEngine implements SearchEngine {
         return indexDirectory;
     }
 
-    public void setIndexDirectory(String indexDirectory) {
-        this.indexDirectory = indexDirectory;
-    }
-
     public int getMaxAddInIndexBeforeComputing() {
         return maxAddInIndexBeforeComputing;
     }
 
-    public void setMaxAddInIndexBeforeComputing(int maxAddInIndexBeforeComputing) {
-        this.maxAddInIndexBeforeComputing = maxAddInIndexBeforeComputing;
-    }
-
-    @Override
-    public void addDescription(UrlEntity forURL, UrlEntity refererURL, String content) {
-        luceneIndexerThread.queueAdding(forURL, refererURL, content);
+    @PostConstruct
+    public void init() throws IOException {
+        directory = new SimpleFSDirectory(new File(indexDirectory));
+        analyzer = new StandardAnalyzer(LuceneSearchEngine.LUCENE_VERSION);
+        luceneIndexerThread = new LuceneIndexerThread(maxAddInIndexBeforeComputing, directory, analyzer);
+        luceneIndexerThread.start();
     }
 
     @Override
@@ -142,10 +134,12 @@ public class LuceneSearchEngine implements SearchEngine {
                     UrlEntity ue = urlDAO.get(Integer.valueOf(urlId));
                     sre.urlEntity = ue;
 
-                    if (ue == null)
+                    if (ue == null) {
                         continue;
-                    if (ue.isError())
+                    }
+                    if (ue.isError()) {
                         continue;
+                    }
 
                     alreadyIn.put(urlId, sre);
                     results.add(sre);
@@ -156,8 +150,9 @@ public class LuceneSearchEngine implements SearchEngine {
                 String partialDescription = SearchTools.getPartAround(fullDescription, SearchTools.findWordPosition(fullDescription, term), LUCENE_MAX_DESCRIPTION_CARACTERS);
                 partialDescription = partialDescription.replace('\n', ' ');
                 partialDescription = partialDescription.replace('\r', ' ');
-                if (!sre.description.contains(partialDescription))
+                if (!sre.description.contains(partialDescription)) {
                     sre.description.add(partialDescription);
+                }
             }
 
             return results;
@@ -175,5 +170,13 @@ public class LuceneSearchEngine implements SearchEngine {
         }
 
         return null;
+    }
+
+    public void setIndexDirectory(String indexDirectory) {
+        this.indexDirectory = indexDirectory;
+    }
+
+    public void setMaxAddInIndexBeforeComputing(int maxAddInIndexBeforeComputing) {
+        this.maxAddInIndexBeforeComputing = maxAddInIndexBeforeComputing;
     }
 }

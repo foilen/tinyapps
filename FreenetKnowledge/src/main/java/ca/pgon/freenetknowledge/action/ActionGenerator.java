@@ -23,7 +23,7 @@ public interface ActionGenerator {
 
     /**
      * This method creates a new action and returns it.
-     * 
+     *
      * @return an action as a Runnable
      */
     Runnable getOne();

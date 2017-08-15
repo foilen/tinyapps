@@ -24,17 +24,17 @@ import ca.pgon.freenetknowledge.search.SearchResultEntry;
 
 public class EmptySearchEngine implements SearchEngine {
 
-	@Override
-	public void addDescription(UrlEntity forURL, UrlEntity refererURL, String content) {
-	}
+    @Override
+    public void addDescription(UrlEntity forURL, UrlEntity refererURL, String content) {
+    }
 
-	@Override
-	public void removeAllDescriptionsFromReferer(UrlEntity refererURL) {
-	}
+    @Override
+    public void removeAllDescriptionsFromReferer(UrlEntity refererURL) {
+    }
 
-	@Override
-	public List<SearchResultEntry> searchTerm(String term) {
-		return null;
-	}
+    @Override
+    public List<SearchResultEntry> searchTerm(String term) {
+        return null;
+    }
 
 }

@@ -41,6 +41,48 @@ public class FmsActionRunnable implements Runnable {
     private SearchEngine searchEngine;
 
     /**
+     * @return the linksUtils
+     */
+    public LinksUtils getLinksUtils() {
+        return linksUtils;
+    }
+
+    /**
+     * @return the newsUtils
+     */
+    public NewsUtils getNewsUtils() {
+        return newsUtils;
+    }
+
+    /**
+     * @return the searchEngine
+     */
+    public SearchEngine getSearchEngine() {
+        return searchEngine;
+    }
+
+    /**
+     * @return the urlDAO
+     */
+    public UrlDao getUrlDAO() {
+        return urlDAO;
+    }
+
+    /**
+     * @return the urlManager
+     */
+    public UrlManager getUrlManager() {
+        return urlManager;
+    }
+
+    /**
+     * @return the urlUtils
+     */
+    public URLUtils getUrlUtils() {
+        return urlUtils;
+    }
+
+    /**
      * This method will check all the FMS forums and get all its links.
      */
     @Override
@@ -66,70 +108,11 @@ public class FmsActionRunnable implements Runnable {
     }
 
     /**
-     * @return the urlDAO
-     */
-    public UrlDao getUrlDAO() {
-        return urlDAO;
-    }
-
-    /**
-     * @param urlDAO
-     *            the urlDAO to set
-     */
-    public void setUrlDAO(UrlDao urlDAO) {
-        this.urlDAO = urlDAO;
-    }
-
-    /**
-     * @return the urlUtils
-     */
-    public URLUtils getUrlUtils() {
-        return urlUtils;
-    }
-
-    /**
-     * @param urlUtils
-     *            the urlUtils to set
-     */
-    public void setUrlUtils(URLUtils urlUtils) {
-        this.urlUtils = urlUtils;
-    }
-
-    /**
-     * @return the linksUtils
-     */
-    public LinksUtils getLinksUtils() {
-        return linksUtils;
-    }
-
-    /**
      * @param linksUtils
      *            the linksUtils to set
      */
     public void setLinksUtils(LinksUtils linksUtils) {
         this.linksUtils = linksUtils;
-    }
-
-    /**
-     * @return the urlManager
-     */
-    public UrlManager getUrlManager() {
-        return urlManager;
-    }
-
-    /**
-     * @param urlManager
-     *            the urlManager to set
-     */
-    public void setUrlManager(UrlManager urlManager) {
-        this.urlManager = urlManager;
-    }
-
-    /**
-     * @return the newsUtils
-     */
-    public NewsUtils getNewsUtils() {
-        return newsUtils;
     }
 
     /**
@@ -141,18 +124,35 @@ public class FmsActionRunnable implements Runnable {
     }
 
     /**
-     * @return the searchEngine
-     */
-    public SearchEngine getSearchEngine() {
-        return searchEngine;
-    }
-
-    /**
      * @param searchEngine
      *            the searchEngine to set
      */
     public void setSearchEngine(SearchEngine searchEngine) {
         this.searchEngine = searchEngine;
+    }
+
+    /**
+     * @param urlDAO
+     *            the urlDAO to set
+     */
+    public void setUrlDAO(UrlDao urlDAO) {
+        this.urlDAO = urlDAO;
+    }
+
+    /**
+     * @param urlManager
+     *            the urlManager to set
+     */
+    public void setUrlManager(UrlManager urlManager) {
+        this.urlManager = urlManager;
+    }
+
+    /**
+     * @param urlUtils
+     *            the urlUtils to set
+     */
+    public void setUrlUtils(URLUtils urlUtils) {
+        this.urlUtils = urlUtils;
     }
 
 }

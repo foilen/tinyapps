@@ -25,7 +25,7 @@ import ca.pgon.freenetknowledge.repository.manager.exception.RetryException;
 public interface UrlManager {
     /**
      * Parse a url and create a URLEntity.
-     * 
+     *
      * @param url
      *            the url
      * @return the created URLEntity
@@ -36,7 +36,7 @@ public interface UrlManager {
 
     /**
      * Persist the given URLEntity.
-     * 
+     *
      * @param ue
      *            the URLEntity
      * @throws RetryException

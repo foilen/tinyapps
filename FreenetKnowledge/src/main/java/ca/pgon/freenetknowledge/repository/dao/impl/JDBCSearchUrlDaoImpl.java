@@ -56,6 +56,11 @@ public class JDBCSearchUrlDaoImpl extends JdbcTemplate implements SearchUrlDao {
     }
 
     @Override
+    public List<String> findUrlLike(String query) {
+        return queryForList("SELECT fullUrl FROM SearchUrlEntity WHERE fullUrlLowerCase LIKE ?", new Object[] { query.toLowerCase() }, String.class);
+    }
+
+    @Override
     public SearchUrlEntity get(Long urlId) {
         List<SearchUrlEntity> list = query("SELECT * FROM SearchUrlEntity WHERE id = ?", new Object[] { urlId }, rowMapper);
 
@@ -64,11 +69,6 @@ public class JDBCSearchUrlDaoImpl extends JdbcTemplate implements SearchUrlDao {
         } else {
             return list.get(0);
         }
-    }
-
-    @Override
-    public List<String> findUrlLike(String query) {
-        return queryForList("SELECT fullUrl FROM SearchUrlEntity WHERE fullUrlLowerCase LIKE ?", new Object[] { query.toLowerCase() }, String.class);
     }
 
     @Autowired

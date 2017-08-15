@@ -41,129 +41,129 @@ import org.apache.lucene.store.NoSuchDirectoryException;
 import ca.pgon.freenetknowledge.repository.entities.UrlEntity;
 
 public class LuceneIndexerThread extends Thread {
-	public class Entry {
-		public UrlEntity forURL;
-		public UrlEntity refererURL;
-		public String content;
+    public class Entry {
+        public UrlEntity forURL;
+        public UrlEntity refererURL;
+        public String content;
 
-		public Entry(UrlEntity forURL, UrlEntity refererURL, String content) {
-			this.forURL = forURL;
-			this.refererURL = refererURL;
-			this.content = content;
-		}
-	}
+        public Entry(UrlEntity forURL, UrlEntity refererURL, String content) {
+            this.forURL = forURL;
+            this.refererURL = refererURL;
+            this.content = content;
+        }
+    }
 
-	static private Logger logger = Logger.getLogger(LuceneIndexerThread.class.getName());
+    static private Logger logger = Logger.getLogger(LuceneIndexerThread.class.getName());
 
-	private Queue<Entry> queue = new ConcurrentLinkedQueue<Entry>();
-	private AtomicBoolean stop = new AtomicBoolean(false);
-	private Semaphore semaphore = new Semaphore(1);
+    private Queue<Entry> queue = new ConcurrentLinkedQueue<Entry>();
+    private AtomicBoolean stop = new AtomicBoolean(false);
+    private Semaphore semaphore = new Semaphore(1);
 
-	private int maxAddInIndexBeforeComputing;
-	private Directory directory;
-	private Analyzer analyzer;
+    private int maxAddInIndexBeforeComputing;
+    private Directory directory;
+    private Analyzer analyzer;
 
-	public LuceneIndexerThread(int maxAddInIndexBeforeComputing, Directory directory, Analyzer analyzer) throws IOException {
-		this.maxAddInIndexBeforeComputing = maxAddInIndexBeforeComputing;
-		this.directory = directory;
-		this.analyzer = analyzer;
-	}
+    public LuceneIndexerThread(int maxAddInIndexBeforeComputing, Directory directory, Analyzer analyzer) throws IOException {
+        this.maxAddInIndexBeforeComputing = maxAddInIndexBeforeComputing;
+        this.directory = directory;
+        this.analyzer = analyzer;
+    }
 
-	public void queueAdding(UrlEntity forURL, UrlEntity refererURL, String content) {
-		queue.add(new Entry(forURL, refererURL, content));
-	}
+    private void addEntry(IndexWriter indexWriter, Entry entry) {
+        Field refererField;
+        if (entry.refererURL != null) {
+            refererField = new Field(LuceneSearchEngine.INDEX_REFERER_URL, String.valueOf(entry.refererURL.getId()), Store.YES, Index.ANALYZED);
+        } else {
+            refererField = new Field(LuceneSearchEngine.INDEX_REFERER_URL, "null", Store.YES, Index.ANALYZED);
+        }
+        Field forField = new Field(LuceneSearchEngine.INDEX_FOR_URL, String.valueOf(entry.forURL.getId()), Store.YES, Index.NO);
+        Field contentField = new Field(LuceneSearchEngine.INDEX_CONTENT, entry.content, Store.YES, Index.ANALYZED);
 
-	@Override
-	public void run() {
-		logger.info("LuceneIndexerThread Starting");
-		while (!stop.get()) {
-			while (queue.isEmpty() && !stop.get()) {
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-				}
-			}
+        Document document = new Document();
+        document.add(refererField);
+        document.add(forField);
+        document.add(contentField);
 
-			IndexWriter indexWriter = null;
+        try {
+            indexWriter.addDocument(document);
+        } catch (CorruptIndexException e) {
+            logger.log(Level.SEVERE, "Description index corrupted", e);
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "Description index could not be written", e);
+        }
+    }
 
-			try {
-				// Open writer
-				semaphore.acquire();
+    public void queueAdding(UrlEntity forURL, UrlEntity refererURL, String content) {
+        queue.add(new Entry(forURL, refererURL, content));
+    }
 
-				IndexWriterConfig indexWriterConfig = new IndexWriterConfig(LuceneSearchEngine.LUCENE_VERSION, analyzer);
-				indexWriterConfig.setOpenMode(OpenMode.CREATE_OR_APPEND);
-				indexWriter = new IndexWriter(directory, indexWriterConfig);
+    public void removing(UrlEntity refererURL) {
+        try {
+            semaphore.acquire();
 
-				// Add at most "maxAddInIndexBeforeComputing" entries in the
-				// index before closing it
-				for (int i = 0; i < maxAddInIndexBeforeComputing && !queue.isEmpty(); ++i) {
-					addEntry(indexWriter, queue.poll());
-				}
-			} catch (Exception e) {
-				logger.log(Level.SEVERE, "Problem writing the index", e);
-			} finally {
-				// Close writer
-				try {
-					indexWriter.close();
-				} catch (Exception e) {
-				}
-				semaphore.release();
-			}
-		}
+            IndexReader indexReader = IndexReader.open(directory, false);
+            Term term = new Term(LuceneSearchEngine.INDEX_REFERER_URL, String.valueOf(refererURL.getId()));
 
-		logger.info("LuceneIndexerThread Stoping");
-	}
+            indexReader.deleteDocuments(term);
 
-	private void addEntry(IndexWriter indexWriter, Entry entry) {
-		Field refererField;
-		if (entry.refererURL != null) {
-			refererField = new Field(LuceneSearchEngine.INDEX_REFERER_URL, String.valueOf(entry.refererURL.getId()), Store.YES, Index.ANALYZED);
-		} else {
-			refererField = new Field(LuceneSearchEngine.INDEX_REFERER_URL, "null", Store.YES, Index.ANALYZED);
-		}
-		Field forField = new Field(LuceneSearchEngine.INDEX_FOR_URL, String.valueOf(entry.forURL.getId()), Store.YES, Index.NO);
-		Field contentField = new Field(LuceneSearchEngine.INDEX_CONTENT, entry.content, Store.YES, Index.ANALYZED);
+            indexReader.close();
+        } catch (NoSuchDirectoryException e) {
+            // The index is empty, so not an issue
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error while removing referer", e);
+        } finally {
+            semaphore.release();
+        }
+    }
 
-		Document document = new Document();
-		document.add(refererField);
-		document.add(forField);
-		document.add(contentField);
+    public void requestStop() {
+        stop.set(true);
 
-		try {
-			indexWriter.addDocument(document);
-		} catch (CorruptIndexException e) {
-			logger.log(Level.SEVERE, "Description index corrupted", e);
-		} catch (IOException e) {
-			logger.log(Level.SEVERE, "Description index could not be written", e);
-		}
-	}
+        try {
+            this.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
-	public void requestStop() {
-		stop.set(true);
+    @Override
+    public void run() {
+        logger.info("LuceneIndexerThread Starting");
+        while (!stop.get()) {
+            while (queue.isEmpty() && !stop.get()) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                }
+            }
 
-		try {
-			this.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
+            IndexWriter indexWriter = null;
 
-	public void removing(UrlEntity refererURL) {
-		try {
-			semaphore.acquire();
+            try {
+                // Open writer
+                semaphore.acquire();
 
-			IndexReader indexReader = IndexReader.open(directory, false);
-			Term term = new Term(LuceneSearchEngine.INDEX_REFERER_URL, String.valueOf(refererURL.getId()));
+                IndexWriterConfig indexWriterConfig = new IndexWriterConfig(LuceneSearchEngine.LUCENE_VERSION, analyzer);
+                indexWriterConfig.setOpenMode(OpenMode.CREATE_OR_APPEND);
+                indexWriter = new IndexWriter(directory, indexWriterConfig);
 
-			indexReader.deleteDocuments(term);
+                // Add at most "maxAddInIndexBeforeComputing" entries in the
+                // index before closing it
+                for (int i = 0; i < maxAddInIndexBeforeComputing && !queue.isEmpty(); ++i) {
+                    addEntry(indexWriter, queue.poll());
+                }
+            } catch (Exception e) {
+                logger.log(Level.SEVERE, "Problem writing the index", e);
+            } finally {
+                // Close writer
+                try {
+                    indexWriter.close();
+                } catch (Exception e) {
+                }
+                semaphore.release();
+            }
+        }
 
-			indexReader.close();
-		} catch (NoSuchDirectoryException e) {
-			// The index is empty, so not an issue
-		} catch (Exception e) {
-			logger.log(Level.SEVERE, "Error while removing referer", e);
-		} finally {
-			semaphore.release();
-		}
-	}
+        logger.info("LuceneIndexerThread Stoping");
+    }
 }

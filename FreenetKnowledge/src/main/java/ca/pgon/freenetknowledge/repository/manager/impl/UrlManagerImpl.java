@@ -46,7 +46,7 @@ public class UrlManagerImpl implements UrlManager {
 
     /**
      * {@inheritDoc}
-     * 
+     *
      */
     @Override
     public UrlEntity createURL(String url) throws RetryException {
@@ -68,7 +68,7 @@ public class UrlManagerImpl implements UrlManager {
 
     /**
      * {@inheritDoc}
-     * 
+     *
      */
     @Override
     public void createURL(UrlEntity ue) throws RetryException {

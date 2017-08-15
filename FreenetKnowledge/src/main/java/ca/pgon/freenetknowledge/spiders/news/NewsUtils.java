@@ -26,196 +26,202 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class NewsUtils {
-	static private final Logger logger = Logger.getLogger(NewsUtils.class.getName());
+    static private final Logger logger = Logger.getLogger(NewsUtils.class.getName());
 
-	private String host;
-	private int port;
-	private Socket connection;
-	private InputStream in;
-	private OutputStream out;
+    private String host;
+    private int port;
+    private Socket connection;
+    private InputStream in;
+    private OutputStream out;
 
-	// Temporary variables
-	private int totalArticles;
+    // Temporary variables
+    private int totalArticles;
 
-	public String getHost() {
-		return host;
-	}
+    private void connect() throws Exception {
+        if (connection == null || connection.isClosed()) {
+            connection = new Socket(host, port);
+            in = connection.getInputStream();
+            out = connection.getOutputStream();
 
-	public void setHost(String host) {
-		this.host = host;
-	}
+            getNextLine();
+        }
+    }
 
-	public int getPort() {
-		return port;
-	}
+    private void disconnect() throws Exception {
+        connection.close();
+    }
 
-	public void setPort(int port) {
-		this.port = port;
-	}
+    public List<String> getAllGroups() {
+        logger.fine("Getting all groups");
+        try {
+            connect();
 
-	public int getTotalMessagesCount() {
-		if (totalArticles == 0)
-			getAllGroups();
-		return totalArticles;
-	}
+            List<String> result = new Vector<String>();
+            totalArticles = 0;
 
-	private void connect() throws Exception {
-		if (connection == null || connection.isClosed()) {
-			connection = new Socket(host, port);
-			in = connection.getInputStream();
-			out = connection.getOutputStream();
+            sendCommand("list");
+            getNextLine();
+            String[] groups = getLines().split("\n");
 
-			getNextLine();
-		}
-	}
+            for (String g : groups) {
+                String[] groupStatus = g.split(" ");
+                int nbPos = groupStatus.length - 3;
+                if (nbPos != 1) {
+                    continue;
+                }
+                totalArticles += Integer.parseInt(groupStatus[nbPos]);
+                String name = "";
+                for (int i = 0; i < nbPos; ++i) {
+                    if (i != 0) {
+                        name += " ";
+                    }
+                    name += groupStatus[i];
+                }
 
-	private void disconnect() throws Exception {
-		connection.close();
-	}
+                result.add(name);
+            }
 
-	public List<String> getAllGroups() {
-		logger.fine("Getting all groups");
-		try {
-			connect();
+            disconnect();
 
-			List<String> result = new Vector<String>();
-			totalArticles = 0;
+            return result;
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error getting groups", e);
+            return null;
+        }
+    }
 
-			sendCommand("list");
-			getNextLine();
-			String[] groups = getLines().split("\n");
+    public List<String> getAllMessagesInGroup(String group) {
+        logger.log(Level.FINE, "Getting all messages in the group {0}", group);
+        try {
+            connect();
 
-			for (String g : groups) {
-				String[] groupStatus = g.split(" ");
-				int nbPos = groupStatus.length - 3;
-				if (nbPos != 1) {
-					continue;
-				}
-				totalArticles += Integer.parseInt(groupStatus[nbPos]);
-				String name = "";
-				for (int i = 0; i < nbPos; ++i) {
-					if (i != 0)
-						name += " ";
-					name += groupStatus[i];
-				}
+            List<String> result = new ArrayList<String>();
 
-				result.add(name);
-			}
+            sendCommand("GROUP " + group);
+            String statusLine = skipTillNumber();
+            String[] status = statusLine.split(" ");
 
-			disconnect();
+            int nbArticle = Integer.parseInt(status[1]);
+            String nextArticle = status[2];
 
-			return result;
-		} catch (Exception e) {
-			logger.log(Level.SEVERE, "Error getting groups", e);
-			return null;
-		}
-	}
+            if (nbArticle > 0) {
+                while (true) {
+                    result.add(getArticle(nextArticle));
+                    sendCommand("NEXT");
+                    status = skipTillNumber().split(" ");
+                    int statusCode = Integer.parseInt(status[0]);
 
-	public List<String> getAllMessagesInGroup(String group) {
-		logger.log(Level.FINE, "Getting all messages in the group {0}", group);
-		try {
-			connect();
+                    if ((statusCode < 200) || (statusCode > 299)) {
+                        break;
+                    }
+                    nextArticle = status[1];
+                }
+            }
 
-			List<String> result = new ArrayList<String>();
+            disconnect();
 
-			sendCommand("GROUP " + group);
-			String statusLine = skipTillNumber();
-			String[] status = statusLine.split(" ");
+            return result;
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
-			int nbArticle = Integer.parseInt(status[1]);
-			String nextArticle = status[2];
+    private String getArticle(String articleId) throws Exception {
+        logger.log(Level.FINE, "Getting article {0}", articleId);
 
-			if (nbArticle > 0) {
-				while (true) {
-					result.add(getArticle(nextArticle));
-					sendCommand("NEXT");
-					status = skipTillNumber().split(" ");
-					int statusCode = Integer.parseInt(status[0]);
+        sendCommand("BODY " + articleId);
+        return getLines();
+    }
 
-					if ((statusCode < 200) || (statusCode > 299))
-						break;
-					nextArticle = status[1];
-				}
-			}
+    public String getHost() {
+        return host;
+    }
 
-			disconnect();
+    private String getLines() throws Exception {
+        StringBuffer result = new StringBuffer();
 
-			return result;
-		} catch (Exception e) {
-			return null;
-		}
-	}
+        boolean first = true;
 
-	private String getArticle(String articleId) throws Exception {
-		logger.log(Level.FINE, "Getting article {0}", articleId);
+        while (true) {
+            String nextLine = getNextLine();
+            if (nextLine.equals(".")) {
+                break;
+            }
 
-		sendCommand("BODY " + articleId);
-		return getLines();
-	}
+            if (first) {
+                first = false;
+            } else {
+                result.append('\n');
+            }
 
-	private String getNextLine() throws Exception {
-		StringBuffer result = new StringBuffer();
+            result.append(nextLine);
+        }
 
-		int c;
-		while ((c = in.read()) != -1) {
-			if (c == '\r')
-				continue;
-			if (c == '\n')
-				break;
+        return result.toString();
+    }
 
-			result.append((char) c);
-		}
+    private String getNextLine() throws Exception {
+        StringBuffer result = new StringBuffer();
 
-		String stringResult = result.toString();
-		if (stringResult.isEmpty()) {
-			return getNextLine();
-		}
+        int c;
+        while ((c = in.read()) != -1) {
+            if (c == '\r') {
+                continue;
+            }
+            if (c == '\n') {
+                break;
+            }
 
-		return stringResult;
-	}
+            result.append((char) c);
+        }
 
-	private String getLines() throws Exception {
-		StringBuffer result = new StringBuffer();
+        String stringResult = result.toString();
+        if (stringResult.isEmpty()) {
+            return getNextLine();
+        }
 
-		boolean first = true;
+        return stringResult;
+    }
 
-		while (true) {
-			String nextLine = getNextLine();
-			if (nextLine.equals("."))
-				break;
+    public int getPort() {
+        return port;
+    }
 
-			if (first) {
-				first = false;
-			} else {
-				result.append('\n');
-			}
+    public int getTotalMessagesCount() {
+        if (totalArticles == 0) {
+            getAllGroups();
+        }
+        return totalArticles;
+    }
 
-			result.append(nextLine);
-		}
+    private void sendCommand(String command) throws Exception {
+        command += "\r\n";
+        out.write(command.getBytes());
+    }
 
-		return result.toString();
-	}
+    public void setHost(String host) {
+        this.host = host;
+    }
 
-	private void sendCommand(String command) throws Exception {
-		command += "\r\n";
-		out.write(command.getBytes());
-	}
+    public void setPort(int port) {
+        this.port = port;
+    }
 
-	private String skipTillNumber() throws Exception {
-		String result = "";
+    private String skipTillNumber() throws Exception {
+        String result = "";
 
-		boolean found = false;
+        boolean found = false;
 
-		while (!found) {
-			result = getNextLine();
-			try {
-				Integer.parseInt(result.split(" ")[0]);
-				found = true;
-			} catch (Exception e) {
+        while (!found) {
+            result = getNextLine();
+            try {
+                Integer.parseInt(result.split(" ")[0]);
+                found = true;
+            } catch (Exception e) {
 
-			}
-		}
+            }
+        }
 
-		return result;
-	}
+        return result;
+    }
 }

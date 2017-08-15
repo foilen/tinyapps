@@ -56,6 +56,15 @@ public class App {
     }
 
     @Bean
+    public ConversionServiceFactoryBean conversionService() {
+        ConversionServiceFactoryBean factoryBean = new ConversionServiceFactoryBean();
+        Set<Converter<?, ?>> converters = new HashSet<>();
+        converters.add(new IntegerToFnTypeConverter());
+        factoryBean.setConverters(converters);
+        return factoryBean;
+    }
+
+    @Bean
     public ActionController crawlingActionController(CrawlingActionGenerator crawlingActionGenerator) {
         ActionController actionController = new ActionController();
         actionController.setCorePoolSize(10);
@@ -71,24 +80,6 @@ public class App {
         actionController.setMaximumPoolSize(3);
         actionController.setActionGenerator(fmsActionGenerator);
         return actionController;
-    }
-
-    @Bean
-    public ConversionServiceFactoryBean conversionService() {
-        ConversionServiceFactoryBean factoryBean = new ConversionServiceFactoryBean();
-        Set<Converter<?, ?>> converters = new HashSet<>();
-        converters.add(new IntegerToFnTypeConverter());
-        factoryBean.setConverters(converters);
-        return factoryBean;
-    }
-
-    @Bean
-    public UpgraderTools upgraderTools(DataSource dataSource, List<UpgradeTask> upgradeTasks) {
-        UpgraderTools upgraderTools = new UpgraderTools(upgradeTasks);
-        DatabaseUpgraderTracker upgraderTracker = new DatabaseUpgraderTracker(jdbcTemplate(dataSource));
-        upgraderTools.setDefaultUpgraderTracker(upgraderTracker);
-        upgraderTools.getUpgraderTrackerByName().put("db", upgraderTracker);
-        return upgraderTools;
     }
 
     @Bean
@@ -110,6 +101,15 @@ public class App {
         newsUtils.setPort(1119);
         newsUtils.setHost("127.0.0.1");
         return newsUtils;
+    }
+
+    @Bean
+    public UpgraderTools upgraderTools(DataSource dataSource, List<UpgradeTask> upgradeTasks) {
+        UpgraderTools upgraderTools = new UpgraderTools(upgradeTasks);
+        DatabaseUpgraderTracker upgraderTracker = new DatabaseUpgraderTracker(jdbcTemplate(dataSource));
+        upgraderTools.setDefaultUpgraderTracker(upgraderTracker);
+        upgraderTools.getUpgraderTrackerByName().put("db", upgraderTracker);
+        return upgraderTools;
     }
 
     @Bean

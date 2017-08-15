@@ -33,113 +33,113 @@ import ca.pgon.freenetknowledge.repository.entities.UrlEntity;
 @ContextConfiguration()
 public class LinksUtilsTest {
 
-	@Autowired
-	private LinksUtils linksUtils;
-	@Autowired
-	private URLUtils urlUtils;
+    @Autowired
+    private LinksUtils linksUtils;
+    @Autowired
+    private URLUtils urlUtils;
 
-	@Test
-	public void testForgeUrlRelativeLink1() throws Exception {
-		UrlEntity ue = urlUtils.parse("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/");
-		String url = "activelink.png";
+    @Test
+    public void testForgeUrlAbsoluteLink() throws Exception {
+        UrlEntity ue = urlUtils.parse("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/folder/");
+        String url = "/SSK@Kgjgrfuenkgre,AQACAAE/super-41/activelink.png";
 
-		assertEquals("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/activelink.png", linksUtils.forgeUrl(ue, url));
-	}
+        assertEquals("/SSK@Kgjgrfuenkgre,AQACAAE/super-41/activelink.png", linksUtils.forgeUrl(ue, url));
+    }
 
-	@Test
-	public void testForgeUrlRelativeLink2() throws Exception {
-		UrlEntity ue = urlUtils.parse("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/index.html");
-		String url = "activelink.png";
+    @Test
+    public void testForgeUrlInFolder1() throws Exception {
+        UrlEntity ue = urlUtils.parse("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/folder/");
+        String url = "activelink.png";
 
-		assertEquals("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/activelink.png", linksUtils.forgeUrl(ue, url));
-	}
+        assertEquals("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/folder/activelink.png", linksUtils.forgeUrl(ue, url));
+    }
 
-	@Test
-	public void testForgeUrlAbsoluteLink() throws Exception {
-		UrlEntity ue = urlUtils.parse("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/folder/");
-		String url = "/SSK@Kgjgrfuenkgre,AQACAAE/super-41/activelink.png";
+    @Test
+    public void testForgeUrlInFolder2() throws Exception {
+        UrlEntity ue = urlUtils.parse("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/folder/index.html");
+        String url = "activelink.png";
 
-		assertEquals("/SSK@Kgjgrfuenkgre,AQACAAE/super-41/activelink.png", linksUtils.forgeUrl(ue, url));
-	}
+        assertEquals("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/folder/activelink.png", linksUtils.forgeUrl(ue, url));
+    }
 
-	@Test
-	public void testForgeUrlInFolder1() throws Exception {
-		UrlEntity ue = urlUtils.parse("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/folder/");
-		String url = "activelink.png";
+    @Test
+    public void testForgeUrlRelativeLink1() throws Exception {
+        UrlEntity ue = urlUtils.parse("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/");
+        String url = "activelink.png";
 
-		assertEquals("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/folder/activelink.png", linksUtils.forgeUrl(ue, url));
-	}
+        assertEquals("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/activelink.png", linksUtils.forgeUrl(ue, url));
+    }
 
-	@Test
-	public void testForgeUrlInFolder2() throws Exception {
-		UrlEntity ue = urlUtils.parse("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/folder/index.html");
-		String url = "activelink.png";
+    @Test
+    public void testForgeUrlRelativeLink2() throws Exception {
+        UrlEntity ue = urlUtils.parse("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/index.html");
+        String url = "activelink.png";
 
-		assertEquals("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/folder/activelink.png", linksUtils.forgeUrl(ue, url));
-	}
+        assertEquals("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/activelink.png", linksUtils.forgeUrl(ue, url));
+    }
 
-	@Test
-	public void testForgeUrlWithSharp() throws Exception {
-		UrlEntity ue = urlUtils.parse("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/");
-		String url = "activelink.png#id=6&amp;value=4";
+    @Test
+    public void testForgeUrlWithAmp() throws Exception {
+        UrlEntity ue = urlUtils.parse("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/");
+        String url = "activelink.png&amp;value=4";
 
-		assertEquals("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/activelink.png", linksUtils.forgeUrl(ue, url));
-	}
+        assertEquals("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/activelink.png", linksUtils.forgeUrl(ue, url));
+    }
 
-	@Test
-	public void testForgeUrlWithAmp() throws Exception {
-		UrlEntity ue = urlUtils.parse("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/");
-		String url = "activelink.png&amp;value=4";
+    @Test
+    public void testForgeUrlWithSharp() throws Exception {
+        UrlEntity ue = urlUtils.parse("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/");
+        String url = "activelink.png#id=6&amp;value=4";
 
-		assertEquals("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/activelink.png", linksUtils.forgeUrl(ue, url));
-	}
+        assertEquals("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/activelink.png", linksUtils.forgeUrl(ue, url));
+    }
 
-	@Test
-	public void testGetDangerousFileType() {
-		assertEquals("application/x-zip-compressed", linksUtils.getDangerousFileType("<h1>Unknown and potentially dangerous content type: application/x-zip-compressed</h1>"));
-	}
+    @Test
+    public void testGetDangerousFileType() {
+        assertEquals("application/x-zip-compressed", linksUtils.getDangerousFileType("<h1>Unknown and potentially dangerous content type: application/x-zip-compressed</h1>"));
+    }
 
-	@Test
-	public void testGetDangerousFileTypeNot() {
-		assertNull(linksUtils.getDangerousFileType("Anything"));
-	}
+    @Test
+    public void testGetDangerousFileTypeNot() {
+        assertNull(linksUtils.getDangerousFileType("Anything"));
+    }
 
-	@Test
-	public void testGetLinksFromA() throws Exception {
-		String html = "<html><body><a href=\"activelink.png\">Activelink</a><a href='go_deeper/page.html'>Deeper</a><a href='/SSK@Kgjgrfuenkgre,AQACAAE/super-41/activelink.png'>Absolute</a></body></html>";
-		UrlEntity ue = urlUtils.parse("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/folder/");
+    @Test
+    public void testGetLinksFromA() throws Exception {
+        String html = "<html><body><a href=\"activelink.png\">Activelink</a><a href='go_deeper/page.html'>Deeper</a><a href='/SSK@Kgjgrfuenkgre,AQACAAE/super-41/activelink.png'>Absolute</a></body></html>";
+        UrlEntity ue = urlUtils.parse("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/folder/");
 
-		List<UrlEntity> links = linksUtils.getLinksFromA(ue, html);
+        List<UrlEntity> links = linksUtils.getLinksFromA(ue, html);
 
-		assertEquals("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/folder/activelink.png", urlUtils.toURL(links.get(0)));
-		assertEquals("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/folder/go_deeper/page.html", urlUtils.toURL(links.get(1)));
-		assertEquals("http://127.0.0.1:8888/SSK@Kgjgrfuenkgre,AQACAAE/super-41/activelink.png", urlUtils.toURL(links.get(2)));
-		assertEquals(3, links.size());
-	}
+        assertEquals("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/folder/activelink.png", urlUtils.toURL(links.get(0)));
+        assertEquals("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/folder/go_deeper/page.html", urlUtils.toURL(links.get(1)));
+        assertEquals("http://127.0.0.1:8888/SSK@Kgjgrfuenkgre,AQACAAE/super-41/activelink.png", urlUtils.toURL(links.get(2)));
+        assertEquals(3, links.size());
+    }
 
-	@Test
-	public void testGetLinksFromIMG() throws Exception {
-		String html = "<html><body><img src=\"activelink.png\">Activelink<img src='go_deeper/page.png'>Deeper<img src='/SSK@Kgjgrfuenkgre,AQACAAE/super-41/activelink.png' alt='Description'>Absolute</body></html>";
-		UrlEntity ue = urlUtils.parse("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/folder/");
+    @Test
+    public void testGetLinksFromIMG() throws Exception {
+        String html = "<html><body><img src=\"activelink.png\">Activelink<img src='go_deeper/page.png'>Deeper<img src='/SSK@Kgjgrfuenkgre,AQACAAE/super-41/activelink.png' alt='Description'>Absolute</body></html>";
+        UrlEntity ue = urlUtils.parse("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/folder/");
 
-		List<UrlEntity> links = linksUtils.getLinksFromIMG(ue, html);
+        List<UrlEntity> links = linksUtils.getLinksFromIMG(ue, html);
 
-		assertEquals("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/folder/activelink.png", urlUtils.toURL(links.get(0)));
-		assertEquals("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/folder/go_deeper/page.png", urlUtils.toURL(links.get(1)));
-		assertEquals("http://127.0.0.1:8888/SSK@Kgjgrfuenkgre,AQACAAE/super-41/activelink.png", urlUtils.toURL(links.get(2)));
-		assertEquals(3, links.size());
-	}
+        assertEquals("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/folder/activelink.png", urlUtils.toURL(links.get(0)));
+        assertEquals("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/folder/go_deeper/page.png", urlUtils.toURL(links.get(1)));
+        assertEquals("http://127.0.0.1:8888/SSK@Kgjgrfuenkgre,AQACAAE/super-41/activelink.png", urlUtils.toURL(links.get(2)));
+        assertEquals(3, links.size());
+    }
 
-	@Test
-	public void testGetLinksFromText() throws Exception {
-		String text = "Check that file SSK@yGvITGZzrusU79s,AQACAAE/toad-41/folder/activelink.png\nalso this one:SSK@yGvITGZzrusU79s,AQACAAE/toad-41/folder/go_deeper/page.png\n and don't forget this last one SSK@Kgjgrfuenkgre,AQACAAE/super-41/activelink.png";
+    @Test
+    public void testGetLinksFromText() throws Exception {
+        String text = "Check that file SSK@yGvITGZzrusU79s,AQACAAE/toad-41/folder/activelink.png\nalso this one:SSK@yGvITGZzrusU79s,AQACAAE/toad-41/folder/go_deeper/page.png\n and don't forget this last one SSK@Kgjgrfuenkgre,AQACAAE/super-41/activelink.png";
 
-		List<UrlEntity> links = linksUtils.getLinksFromText(text);
+        List<UrlEntity> links = linksUtils.getLinksFromText(text);
 
-		assertEquals("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/folder/activelink.png", urlUtils.toURL(links.get(0)));
-		assertEquals("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/folder/go_deeper/page.png", urlUtils.toURL(links.get(1)));
-		assertEquals("http://127.0.0.1:8888/SSK@Kgjgrfuenkgre,AQACAAE/super-41/activelink.png", urlUtils.toURL(links.get(2)));
-		assertEquals(3, links.size());
-	}
+        assertEquals("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/folder/activelink.png", urlUtils.toURL(links.get(0)));
+        assertEquals("http://127.0.0.1:8888/SSK@yGvITGZzrusU79s,AQACAAE/toad-41/folder/go_deeper/page.png", urlUtils.toURL(links.get(1)));
+        assertEquals("http://127.0.0.1:8888/SSK@Kgjgrfuenkgre,AQACAAE/super-41/activelink.png", urlUtils.toURL(links.get(2)));
+        assertEquals(3, links.size());
+    }
 
 }

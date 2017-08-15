@@ -46,7 +46,7 @@ public class UrlEntity {
 
     /**
      * To copy all the fields.
-     * 
+     *
      * @param ue
      *            the source to copy from
      */

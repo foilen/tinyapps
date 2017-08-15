@@ -43,6 +43,21 @@ public class UrlStarter implements Starter {
     private String[] defaultUrls;
 
     /**
+     * @return the defaultUrls
+     */
+    public String[] getDefaultUrls() {
+        return defaultUrls;
+    }
+
+    /**
+     * @param defaultUrls
+     *            the defaultUrls to set
+     */
+    public void setDefaultUrls(String[] defaultUrls) {
+        this.defaultUrls = defaultUrls;
+    }
+
+    /**
      * {@inheritDoc}
      */
     @PostConstruct
@@ -74,21 +89,6 @@ public class UrlStarter implements Starter {
             count = urlDao.getCount();
             logger.log(Level.INFO, "There are currently {0} urls in the DB", count);
         }
-    }
-
-    /**
-     * @return the defaultUrls
-     */
-    public String[] getDefaultUrls() {
-        return defaultUrls;
-    }
-
-    /**
-     * @param defaultUrls
-     *            the defaultUrls to set
-     */
-    public void setDefaultUrls(String[] defaultUrls) {
-        this.defaultUrls = defaultUrls;
     }
 
 }

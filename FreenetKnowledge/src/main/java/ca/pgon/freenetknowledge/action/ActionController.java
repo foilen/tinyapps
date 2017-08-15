@@ -43,22 +43,6 @@ public class ActionController {
     private ActionGenerator actionGenerator;
 
     /**
-     * Initialization that creates the executor and starts the action filler.
-     */
-    @PostConstruct
-    public void init() {
-        logger.info("Initialization of the ActionController");
-
-        workQueue = new ArrayBlockingQueue<Runnable>(maximumPoolSize * 5);
-
-        executor = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue);
-
-        new ActionControllerFillerThread(this).start();
-
-        logger.info("Initialization of the ActionController completed");
-    }
-
-    /**
      * This method is called by the ActionControllerFillerThread to request new actions.
      */
     public void fill() {
@@ -95,10 +79,48 @@ public class ActionController {
     }
 
     /**
+     * @return the actionGenerator
+     */
+    public ActionGenerator getActionGenerator() {
+        return actionGenerator;
+    }
+
+    /**
      * @return the corePoolSize
      */
     public int getCorePoolSize() {
         return corePoolSize;
+    }
+
+    /**
+     * @return the maximumPoolSize
+     */
+    public int getMaximumPoolSize() {
+        return maximumPoolSize;
+    }
+
+    /**
+     * Initialization that creates the executor and starts the action filler.
+     */
+    @PostConstruct
+    public void init() {
+        logger.info("Initialization of the ActionController");
+
+        workQueue = new ArrayBlockingQueue<Runnable>(maximumPoolSize * 5);
+
+        executor = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue);
+
+        new ActionControllerFillerThread(this).start();
+
+        logger.info("Initialization of the ActionController completed");
+    }
+
+    /**
+     * @param actionGenerator
+     *            the actionGenerator to set
+     */
+    public void setActionGenerator(ActionGenerator actionGenerator) {
+        this.actionGenerator = actionGenerator;
     }
 
     /**
@@ -110,33 +132,11 @@ public class ActionController {
     }
 
     /**
-     * @return the maximumPoolSize
-     */
-    public int getMaximumPoolSize() {
-        return maximumPoolSize;
-    }
-
-    /**
      * @param maximumPoolSize
      *            the maximumPoolSize to set
      */
     public void setMaximumPoolSize(int maximumPoolSize) {
         this.maximumPoolSize = maximumPoolSize;
-    }
-
-    /**
-     * @return the actionGenerator
-     */
-    public ActionGenerator getActionGenerator() {
-        return actionGenerator;
-    }
-
-    /**
-     * @param actionGenerator
-     *            the actionGenerator to set
-     */
-    public void setActionGenerator(ActionGenerator actionGenerator) {
-        this.actionGenerator = actionGenerator;
     }
 
 }

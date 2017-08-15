@@ -38,13 +38,21 @@ public class URLUtils {
         return result;
     }
 
+    /**
+     * @return the baseURL
+     */
+    public String getBaseURL() {
+        return baseURL;
+    }
+
     public String getExtension(UrlEntity url) {
         String path = url.getPath();
 
         if (path != null) {
             int posDot = path.lastIndexOf('.');
-            if (posDot == -1)
+            if (posDot == -1) {
                 return null;
+            }
             int posSlash = path.lastIndexOf('/');
             if (posDot > posSlash) {
                 return path.substring(posDot + 1).toLowerCase();
@@ -56,8 +64,9 @@ public class URLUtils {
 
     private boolean isString(String source, String... cmp) {
         for (String s : cmp) {
-            if (source.compareTo(s) == 0)
+            if (source.compareTo(s) == 0) {
                 return true;
+            }
         }
 
         return false;
@@ -69,16 +78,18 @@ public class URLUtils {
         case CHK:
         case KSK:
             if (extension != null) {
-                if (isString(extension, "frdx", "htm", "html"))
+                if (isString(extension, "frdx", "htm", "html")) {
                     return true;
+                }
             }
             return false;
 
         case SSK:
         case USK:
             if (extension != null) {
-                if (!isString(extension, "frdx", "htm", "html"))
+                if (!isString(extension, "frdx", "htm", "html")) {
                     return false;
+                }
             }
         }
 
@@ -144,14 +155,16 @@ public class URLUtils {
         String[] urlParts = url.split("/");
 
         ue.setType(fnType.parse(newType));
-        if (ue.getType() == null)
+        if (ue.getType() == null) {
             throw (new Exception("The type is wrong"));
+        }
 
         switch (ue.getType()) {
         case CHK:
             ue.setHash(urlParts[0]);
-            if (urlParts.length > 1)
+            if (urlParts.length > 1) {
                 ue.setName(urlParts[1]);
+            }
             break;
         case SSK:
             ue.setHash(urlParts[0]);
@@ -184,46 +197,16 @@ public class URLUtils {
     }
 
     /**
-     * Get the URL.
-     * 
-     * @param ue
-     *            the UrlEntity
-     * @return the url in String
+     * @param baseURL
+     *            the baseURL to set
      */
-    public String toURLWhitoutBase(UrlEntity ue) {
-        String result = ue.getType() + "@";
-
-        switch (ue.getType()) {
-        case CHK:
-            result += ue.getHash();
-            if (StringUtils.isNotEmpty(ue.getName()))
-                result += "/" + ue.getName();
-            break;
-        case SSK:
-            result += ue.getHash() + "/";
-            result += ue.getName() + "-";
-            result += ue.getVersion();
-            if (StringUtils.isNotEmpty(ue.getPath()))
-                result += "/" + ue.getPath();
-            break;
-        case USK:
-            result += ue.getHash() + "/";
-            result += ue.getName() + "/";
-            result += ue.getVersion();
-            if (StringUtils.isNotEmpty(ue.getPath()))
-                result += "/" + ue.getPath();
-            break;
-        case KSK:
-            result += ue.getName();
-            break;
-        }
-
-        return result;
+    public void setBaseURL(String baseURL) {
+        this.baseURL = baseURL;
     }
 
     /**
      * Get a full absolute URL.
-     * 
+     *
      * @param ue
      *            the UrlEntity
      * @return the url in String
@@ -235,18 +218,44 @@ public class URLUtils {
     }
 
     /**
-     * @return the baseURL
+     * Get the URL.
+     *
+     * @param ue
+     *            the UrlEntity
+     * @return the url in String
      */
-    public String getBaseURL() {
-        return baseURL;
-    }
+    public String toURLWhitoutBase(UrlEntity ue) {
+        String result = ue.getType() + "@";
 
-    /**
-     * @param baseURL
-     *            the baseURL to set
-     */
-    public void setBaseURL(String baseURL) {
-        this.baseURL = baseURL;
+        switch (ue.getType()) {
+        case CHK:
+            result += ue.getHash();
+            if (StringUtils.isNotEmpty(ue.getName())) {
+                result += "/" + ue.getName();
+            }
+            break;
+        case SSK:
+            result += ue.getHash() + "/";
+            result += ue.getName() + "-";
+            result += ue.getVersion();
+            if (StringUtils.isNotEmpty(ue.getPath())) {
+                result += "/" + ue.getPath();
+            }
+            break;
+        case USK:
+            result += ue.getHash() + "/";
+            result += ue.getName() + "/";
+            result += ue.getVersion();
+            if (StringUtils.isNotEmpty(ue.getPath())) {
+                result += "/" + ue.getPath();
+            }
+            break;
+        case KSK:
+            result += ue.getName();
+            break;
+        }
+
+        return result;
     }
 
 }

@@ -37,7 +37,7 @@ public class ContentResultVOPopulator {
 
     /**
      * Populate a list of content result.
-     * 
+     *
      * @param searchResultEntries
      * @return the list of results
      */

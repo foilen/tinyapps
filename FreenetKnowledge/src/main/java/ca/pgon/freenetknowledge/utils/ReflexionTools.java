@@ -23,7 +23,7 @@ public class ReflexionTools {
 
     /**
      * Copy the properties from one bean to another. The type must be exactly the same.
-     * 
+     *
      * @param src
      *            the source bean
      * @param dst
@@ -55,7 +55,7 @@ public class ReflexionTools {
 
     /**
      * Copy the properties from one bean to another. The type must be exactly the same.
-     * 
+     *
      * @param src
      *            the source bean
      * @param dst

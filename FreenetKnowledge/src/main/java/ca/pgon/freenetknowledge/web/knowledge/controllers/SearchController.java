@@ -49,6 +49,24 @@ public class SearchController {
     @Autowired
     private ContentResultVOPopulator contentResultVOPopulator;
 
+    @RequestMapping("/contentSearch")
+    public ModelAndView contentSearch(String contentQuery) {
+        ModelAndView modelAndView = new ModelAndView("content_search");
+
+        // Return the query
+        modelAndView.addObject("contentQuery", contentQuery);
+
+        // Get the result
+        List<ContentResultVO> result = null;
+        if (StringUtils.isNotEmpty(contentQuery)) {
+            List<SearchResultEntry> searchResult = searchEngine.searchTerm(contentQuery);
+            result = contentResultVOPopulator.populate(searchResult);
+        }
+        modelAndView.addObject("result", result);
+
+        return modelAndView;
+    }
+
     @RequestMapping("/urlSearch")
     public ModelAndView urlSearch(String urlQuery, Boolean endsWith) {
         ModelAndView modelAndView = new ModelAndView("url_search");
@@ -71,24 +89,6 @@ public class SearchController {
             result.add(urlUtils.getBaseURL() + searchResult);
         }
 
-        modelAndView.addObject("result", result);
-
-        return modelAndView;
-    }
-
-    @RequestMapping("/contentSearch")
-    public ModelAndView contentSearch(String contentQuery) {
-        ModelAndView modelAndView = new ModelAndView("content_search");
-
-        // Return the query
-        modelAndView.addObject("contentQuery", contentQuery);
-
-        // Get the result
-        List<ContentResultVO> result = null;
-        if (StringUtils.isNotEmpty(contentQuery)) {
-            List<SearchResultEntry> searchResult = searchEngine.searchTerm(contentQuery);
-            result = contentResultVOPopulator.populate(searchResult);
-        }
         modelAndView.addObject("result", result);
 
         return modelAndView;

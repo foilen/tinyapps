@@ -24,82 +24,83 @@ import org.junit.Test;
 
 public class ReflexionToolsTest {
 
-	private final String expectedString = "some text";
-	private final Date expectedDate = new Date();
+    private class Bean {
+        private String myString;
+        private Date myDate;
+        private String a;
 
-	private class Bean {
-		private String myString;
-		private Date myDate;
-		private String a;
+        public String getA() {
+            return a;
+        }
 
-		public String getMyString() {
-			return myString;
-		}
+        public Date getMyDate() {
+            return myDate;
+        }
 
-		public void setMyString(String myString) {
-			this.myString = myString;
-		}
+        public String getMyString() {
+            return myString;
+        }
 
-		public Date getMyDate() {
-			return myDate;
-		}
+        public void setA(String a) {
+            this.a = a;
+        }
 
-		public void setMyDate(Date myDate) {
-			this.myDate = myDate;
-		}
+        public void setMyDate(Date myDate) {
+            this.myDate = myDate;
+        }
 
-		public String getA() {
-			return a;
-		}
+        public void setMyString(String myString) {
+            this.myString = myString;
+        }
 
-		public void setA(String a) {
-			this.a = a;
-		}
+    }
 
-	}
+    private final String expectedString = "some text";
 
-	@Test
-	public void testCopyGetToSetOneString() {
-		Bean bean1 = new Bean();
-		Bean bean2 = new Bean();
+    private final Date expectedDate = new Date();
 
-		bean1.setMyString(expectedString);
+    @Test
+    public void testCopyGetToSetAllValues() {
+        Bean bean1 = new Bean();
+        Bean bean2 = new Bean();
 
-		ReflexionTools.copyGetToSet(bean1, bean2, "myString");
+        bean1.setMyString(expectedString);
+        bean1.setMyDate(expectedDate);
 
-		assertEquals(expectedString, bean1.getMyString());
-		assertEquals(expectedString, bean2.getMyString());
-	}
+        ReflexionTools.copyGetToSet(bean1, bean2, "myString", "myDate");
 
-	@Test
-	public void testCopyGetToSetOneStringSmallname() {
-		Bean bean1 = new Bean();
-		Bean bean2 = new Bean();
+        assertEquals(expectedString, bean1.getMyString());
+        assertEquals(expectedString, bean2.getMyString());
+        assertEquals(expectedDate, bean1.getMyDate());
+        assertEquals(expectedDate, bean2.getMyDate());
+    }
 
-		bean1.setA(expectedString);
+    @Test
+    public void testCopyGetToSetOneString() {
+        Bean bean1 = new Bean();
+        Bean bean2 = new Bean();
 
-		ReflexionTools.copyGetToSet(bean1, bean2, "myString", "a");
+        bean1.setMyString(expectedString);
 
-		assertEquals(expectedString, bean1.getA());
-		assertEquals(expectedString, bean2.getA());
-		assertEquals(null, bean1.getMyString());
-		assertEquals(null, bean2.getMyString());
-	}
+        ReflexionTools.copyGetToSet(bean1, bean2, "myString");
 
-	@Test
-	public void testCopyGetToSetAllValues() {
-		Bean bean1 = new Bean();
-		Bean bean2 = new Bean();
+        assertEquals(expectedString, bean1.getMyString());
+        assertEquals(expectedString, bean2.getMyString());
+    }
 
-		bean1.setMyString(expectedString);
-		bean1.setMyDate(expectedDate);
+    @Test
+    public void testCopyGetToSetOneStringSmallname() {
+        Bean bean1 = new Bean();
+        Bean bean2 = new Bean();
 
-		ReflexionTools.copyGetToSet(bean1, bean2, "myString", "myDate");
+        bean1.setA(expectedString);
 
-		assertEquals(expectedString, bean1.getMyString());
-		assertEquals(expectedString, bean2.getMyString());
-		assertEquals(expectedDate, bean1.getMyDate());
-		assertEquals(expectedDate, bean2.getMyDate());
-	}
+        ReflexionTools.copyGetToSet(bean1, bean2, "myString", "a");
+
+        assertEquals(expectedString, bean1.getA());
+        assertEquals(expectedString, bean2.getA());
+        assertEquals(null, bean1.getMyString());
+        assertEquals(null, bean2.getMyString());
+    }
 
 }

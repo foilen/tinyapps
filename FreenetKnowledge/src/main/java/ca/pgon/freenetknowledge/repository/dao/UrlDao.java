@@ -26,7 +26,7 @@ public interface UrlDao {
 
     /**
      * Persist the given URLEntity.
-     * 
+     *
      * @param ue
      *            the URLEntity
      */
@@ -40,7 +40,7 @@ public interface UrlDao {
 
     /**
      * Tells how many Urls are present in the DB.
-     * 
+     *
      * @return the amount of urls
      */
     long getCount();
@@ -51,7 +51,7 @@ public interface UrlDao {
 
     /**
      * Tells how many Urls were never visited.
-     * 
+     *
      * @return the amount of urls
      */
     long getToVisitCount();

@@ -27,25 +27,17 @@ public class SearchUrlEntity {
     private String fullUrl;
 
     /**
-     * @return the id
-     */
-    public long getId() {
-        return id;
-    }
-
-    /**
-     * @param id
-     *            the id to set
-     */
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    /**
      * @return the fullUrl
      */
     public String getFullUrl() {
         return fullUrl;
+    }
+
+    /**
+     * @return the id
+     */
+    public long getId() {
+        return id;
     }
 
     /**
@@ -54,6 +46,14 @@ public class SearchUrlEntity {
      */
     public void setFullUrl(String fullUrl) {
         this.fullUrl = fullUrl;
+    }
+
+    /**
+     * @param id
+     *            the id to set
+     */
+    public void setId(long id) {
+        this.id = id;
     }
 
 }

@@ -21,9 +21,9 @@ import java.util.List;
 import ca.pgon.freenetknowledge.repository.entities.UrlEntity;
 
 public interface SearchEngine {
-	void addDescription(UrlEntity forURL, UrlEntity refererURL, String content);
+    void addDescription(UrlEntity forURL, UrlEntity refererURL, String content);
 
-	void removeAllDescriptionsFromReferer(UrlEntity refererURL);
+    void removeAllDescriptionsFromReferer(UrlEntity refererURL);
 
-	List<SearchResultEntry> searchTerm(String term);
+    List<SearchResultEntry> searchTerm(String term);
 }

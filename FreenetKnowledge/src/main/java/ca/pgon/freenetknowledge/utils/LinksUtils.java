@@ -44,7 +44,7 @@ public class LinksUtils {
 
     /**
      * Get an absolute url.
-     * 
+     *
      * @param ue
      *            the URLEntity on which the url was found
      * @param url
@@ -88,8 +88,9 @@ public class LinksUtils {
         String search = "Unknown and potentially dangerous content type: ";
         int pos = text.indexOf(search);
 
-        if (pos == -1)
+        if (pos == -1) {
             return null;
+        }
 
         pos += search.length();
 
@@ -126,8 +127,9 @@ public class LinksUtils {
             result = getDocument(urlUtils.toURL(ue) + "?type=text/plain");
             danger = getDangerousFileType(result);
         }
-        if (danger != null)
+        if (danger != null) {
             throw new Exception("Unhandled dangerous file type: " + danger);
+        }
 
         return result;
     }
@@ -165,8 +167,9 @@ public class LinksUtils {
             if (endPos == -1) {
                 endPos = lowerHtml.indexOf('<', pos + 1);
             }
-            if (endPos == -1)
+            if (endPos == -1) {
                 continue;
+            }
 
             String htmlLink = html.substring(pos, endPos);
             String lowerHtmlLink = htmlLink.toLowerCase();
@@ -175,8 +178,9 @@ public class LinksUtils {
 
             // Find the link
             int lPos = lowerHtmlLink.indexOf("href=");
-            if (lPos == -1)
+            if (lPos == -1) {
                 continue;
+            }
 
             char opening = lowerHtmlLink.charAt(lPos + 5);
 
@@ -224,8 +228,9 @@ public class LinksUtils {
 
             // Find the link
             int lPos = lowerHtmlLink.indexOf("src=");
-            if (lPos == -1)
+            if (lPos == -1) {
                 continue;
+            }
 
             char opening = lowerHtmlLink.charAt(lPos + 4);
 
@@ -316,8 +321,9 @@ public class LinksUtils {
         while ((pos = lowerHtml.indexOf("<file ", pos)) != -1) {
             // Get the full link
             int endPos = lowerHtml.indexOf('>', pos);
-            if (endPos == -1)
+            if (endPos == -1) {
                 continue;
+            }
 
             String htmlLink = html.substring(pos, endPos);
             String lowerHtmlLink = htmlLink.toLowerCase();
@@ -326,8 +332,9 @@ public class LinksUtils {
 
             // Find the link
             int lPos = lowerHtmlLink.indexOf("key=\"");
-            if (lPos == -1)
+            if (lPos == -1) {
                 continue;
+            }
 
             lPos += 5;
 
@@ -335,14 +342,16 @@ public class LinksUtils {
 
             // Find the size
             lPos = lowerHtmlLink.indexOf("size=\"");
-            if (lPos == -1)
+            if (lPos == -1) {
                 continue;
+            }
 
             lPos += 6;
 
             String linkSize = htmlLink.substring(lPos, lowerHtmlLink.indexOf('"', lPos));
-            if (linkSize.equals("0"))
+            if (linkSize.equals("0")) {
                 linkSize = null;
+            }
 
             // Create the link
             try {
@@ -382,8 +391,9 @@ public class LinksUtils {
         while ((pos = lowerHtml.indexOf("<link ", pos)) != -1) {
             // Get the full link
             int endPos = lowerHtml.indexOf('>', pos);
-            if (endPos == -1)
+            if (endPos == -1) {
                 continue;
+            }
 
             String htmlLink = html.substring(pos, endPos);
             String lowerHtmlLink = htmlLink.toLowerCase();
@@ -392,8 +402,9 @@ public class LinksUtils {
 
             // Find the link
             int lPos = lowerHtmlLink.indexOf("key=\"");
-            if (lPos == -1)
+            if (lPos == -1) {
                 continue;
+            }
 
             lPos += 5;
 

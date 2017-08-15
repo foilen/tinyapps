@@ -45,7 +45,7 @@ public class CrawlingActionRunnable implements Runnable {
 
     /**
      * The constructor.
-     * 
+     *
      * @param urlEntity
      *            the url to visit
      */
@@ -54,48 +54,8 @@ public class CrawlingActionRunnable implements Runnable {
     }
 
     /**
-     * This method will visit the URL and get all its links.
-     */
-    @Override
-    public void run() {
-        logger.log(Level.INFO, "Looking at {0}", urlUtils.toURL(urlEntity));
-
-        try {
-            // Visit and get the urls
-            if (urlUtils.isVisitable(urlEntity)) {
-                List<UrlEntity> newLinks = linksUtils.getLinks(urlEntity);
-
-                for (UrlEntity u : newLinks) {
-                    AddURL(u);
-                }
-            }
-            // Update the entry in the DB
-            urlEntity.setLast_visited(new Date());
-            urlEntity.setVisiting(false);
-            urlEntity.setVisited(true);
-            urlDAO.updateURLignoringVersionning(urlEntity);
-        } catch (Exception e) {
-            if (e.getMessage().equals("Connection refused: connect")) {
-                // Issue connecting with Freenet
-                urlEntity.setLast_visited(null);
-                urlDAO.updateURLignoringVersionning(urlEntity);
-                logger.severe("Cannot connect to Freenet");
-            } else if (e.getMessage().startsWith("Server returned HTTP response code: 500")) {
-                // The url is not available
-                urlEntity.setError(true);
-                urlDAO.updateURLignoringVersionning(urlEntity);
-            } else {
-                // Unknown error
-                urlEntity.setError(true);
-                urlDAO.updateURLignoringVersionning(urlEntity);
-                logger.log(Level.SEVERE, null, e);
-            }
-        }
-    }
-
-    /**
      * Add a new URL to the Database.
-     * 
+     *
      * @param url
      *            the url
      * @throws Exception
@@ -141,6 +101,13 @@ public class CrawlingActionRunnable implements Runnable {
     }
 
     /**
+     * @return the linksUtils
+     */
+    public LinksUtils getLinksUtils() {
+        return linksUtils;
+    }
+
+    /**
      * @return the urlDAO
      */
     public UrlDao getUrlDAO() {
@@ -148,11 +115,10 @@ public class CrawlingActionRunnable implements Runnable {
     }
 
     /**
-     * @param urlDAO
-     *            the urlDAO to set
+     * @return the urlManager
      */
-    public void setUrlDAO(UrlDao urlDAO) {
-        this.urlDAO = urlDAO;
+    public UrlManager getUrlManager() {
+        return urlManager;
     }
 
     /**
@@ -163,18 +129,43 @@ public class CrawlingActionRunnable implements Runnable {
     }
 
     /**
-     * @param urlUtils
-     *            the urlUtils to set
+     * This method will visit the URL and get all its links.
      */
-    public void setUrlUtils(URLUtils urlUtils) {
-        this.urlUtils = urlUtils;
-    }
+    @Override
+    public void run() {
+        logger.log(Level.INFO, "Looking at {0}", urlUtils.toURL(urlEntity));
 
-    /**
-     * @return the linksUtils
-     */
-    public LinksUtils getLinksUtils() {
-        return linksUtils;
+        try {
+            // Visit and get the urls
+            if (urlUtils.isVisitable(urlEntity)) {
+                List<UrlEntity> newLinks = linksUtils.getLinks(urlEntity);
+
+                for (UrlEntity u : newLinks) {
+                    AddURL(u);
+                }
+            }
+            // Update the entry in the DB
+            urlEntity.setLast_visited(new Date());
+            urlEntity.setVisiting(false);
+            urlEntity.setVisited(true);
+            urlDAO.updateURLignoringVersionning(urlEntity);
+        } catch (Exception e) {
+            if (e.getMessage().equals("Connection refused: connect")) {
+                // Issue connecting with Freenet
+                urlEntity.setLast_visited(null);
+                urlDAO.updateURLignoringVersionning(urlEntity);
+                logger.severe("Cannot connect to Freenet");
+            } else if (e.getMessage().startsWith("Server returned HTTP response code: 500")) {
+                // The url is not available
+                urlEntity.setError(true);
+                urlDAO.updateURLignoringVersionning(urlEntity);
+            } else {
+                // Unknown error
+                urlEntity.setError(true);
+                urlDAO.updateURLignoringVersionning(urlEntity);
+                logger.log(Level.SEVERE, null, e);
+            }
+        }
     }
 
     /**
@@ -186,10 +177,11 @@ public class CrawlingActionRunnable implements Runnable {
     }
 
     /**
-     * @return the urlManager
+     * @param urlDAO
+     *            the urlDAO to set
      */
-    public UrlManager getUrlManager() {
-        return urlManager;
+    public void setUrlDAO(UrlDao urlDAO) {
+        this.urlDAO = urlDAO;
     }
 
     /**
@@ -198,6 +190,14 @@ public class CrawlingActionRunnable implements Runnable {
      */
     public void setUrlManager(UrlManager urlManager) {
         this.urlManager = urlManager;
+    }
+
+    /**
+     * @param urlUtils
+     *            the urlUtils to set
+     */
+    public void setUrlUtils(URLUtils urlUtils) {
+        this.urlUtils = urlUtils;
     }
 
 }
