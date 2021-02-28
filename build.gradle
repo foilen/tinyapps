@@ -2,13 +2,6 @@ allprojects {
     apply plugin: 'eclipse'
 
     group = 'com.foilen'
-
-    buildscript {
-        repositories {
-            mavenLocal()
-            jcenter()
-        }
-    }
 }
 
 subprojects {
@@ -20,6 +13,6 @@ subprojects {
 
     repositories {
         mavenLocal()
-        jcenter()
+        mavenCentral()
     }
 }

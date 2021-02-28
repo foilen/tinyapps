@@ -3,13 +3,13 @@ version = 1.0
 apply plugin: 'application'
 mainClassName = 'com.foilen.gnucashbulk.App'
 
-sourceCompatibility = '1.8'
-targetCompatibility = '1.8'
+sourceCompatibility = 11
 
 dependencies {
-    compile 'com.foilen:jl-smalltools:0.12.0'
+    compile "com.foilen:jl-smalltools:$smalltoolsVersion"
     compile 'org.springframework:spring-jdbc:4.2.4.RELEASE'
     compile 'org.xerial:sqlite-jdbc:3.8.11.2'
+    implementation 'javax.xml.bind:jaxb-api:2.3.1'
     
     testCompile 'junit:junit:4.11'
 }
