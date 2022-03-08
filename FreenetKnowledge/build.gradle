@@ -12,15 +12,15 @@ sourceCompatibility = 11
 
 dependencies {
 
-    compile "com.foilen:jl-smalltools:$smalltoolsVersion"
-    compile 'com.google.guava:guava:23.0'
-    compile 'com.h2database:h2'
-    compile 'org.apache.commons:commons-lang3:3.5'
-    compile 'org.apache.lucene:lucene-core:3.6.2'
-    compile 'org.springframework.boot:spring-boot-starter-freemarker'
-    compile 'org.springframework.boot:spring-boot-starter-jdbc'
-    compile 'org.springframework.boot:spring-boot-starter-web'
+    implementation "com.foilen:jl-smalltools:$smalltoolsVersion"
+    implementation 'com.google.guava:guava:23.0'
+    implementation 'com.h2database:h2'
+    implementation 'org.apache.commons:commons-lang3:3.5'
+    implementation 'org.apache.lucene:lucene-core:3.6.2'
+    implementation 'org.springframework.boot:spring-boot-starter-freemarker'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
     
-    testCompile 'junit:junit'
-    testCompile 'org.springframework:spring-test'
+    testImplementation 'junit:junit'
+    testImplementation 'org.springframework:spring-test'
 }
