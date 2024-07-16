@@ -3,7 +3,7 @@ version = 1.0
 apply plugin: 'application'
 mainClassName = 'com.foilen.gnucashbulk.App'
 
-sourceCompatibility = 11
+sourceCompatibility = 21
 
 dependencies {
     implementation "com.foilen:jl-smalltools:$smalltoolsVersion"
