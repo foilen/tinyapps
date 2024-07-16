@@ -9,10 +9,11 @@
  */
 package ca.pgon.UpdateWatcher;
 
+import com.foilen.smalltools.JavaEnvironmentValues;
+import com.foilen.smalltools.filesystemupdatewatcher.FileSystemUpdateWatcher;
+
 import java.io.IOException;
 
-import ca.pgon.st.light.JavaEnvironmentValues;
-import ca.pgon.st.light7.filesystemupdatewatcher.FileSystemUpdateWatcher;
 
 public class App {
 

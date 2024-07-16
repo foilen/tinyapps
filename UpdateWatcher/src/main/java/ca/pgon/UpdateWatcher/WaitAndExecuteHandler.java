@@ -13,8 +13,8 @@ import java.io.File;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import ca.pgon.st.light.Console;
-import ca.pgon.st.light7.filesystemupdatewatcher.FileSystemUpdateHandler;
+import com.foilen.smalltools.filesystemupdatewatcher.FileSystemUpdateHandler;
+import com.foilen.smalltools.tools.ConsoleTools;
 
 /**
  * Waits a certain amount of time after the last event to execute a command.
@@ -64,7 +64,7 @@ public class WaitAndExecuteHandler extends Thread implements FileSystemUpdateHan
                         // Execute
                         System.out.println("Execute: " + command);
                         System.out.println();
-                        Console.executeAndWait(command);
+                        ConsoleTools.executeAndWait(command);
                         System.out.println();
                         System.out.println("Execution Completed");
                         System.out.println();

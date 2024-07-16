@@ -4,8 +4,9 @@ apply plugin: 'application'
 mainClassName = 'ca.pgon.linkvalidator.App'
 
 dependencies {
-    implementation 'ca.pgon:st-light6:4.0.0'
-    implementation 'org.jsoup:jsoup:1.7.3'
+    //implementation 'ca.pgon:st-light6:4.0.0'
+    implementation "com.foilen:jl-smalltools-main:$smalltoolsVersion"
+    implementation 'org.jsoup:jsoup:1.18.1'
     
-    testImplementation 'junit:junit:4.11'
+    testImplementation 'junit:junit:4.13.2'
 }

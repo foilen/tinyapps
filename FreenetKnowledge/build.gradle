@@ -12,10 +12,10 @@ sourceCompatibility = 21
 
 dependencies {
 
-    implementation "com.foilen:jl-smalltools:$smalltoolsVersion"
-    implementation 'com.google.guava:guava:23.0'
+    implementation "com.foilen:jl-smalltools-database:$smalltoolsVersion"
+    implementation 'com.google.guava:guava:33.2.1-jre'
     implementation 'com.h2database:h2'
-    implementation 'org.apache.commons:commons-lang3:3.5'
+    implementation 'org.apache.commons:commons-lang3:3.14.0'
     implementation 'org.apache.lucene:lucene-core:3.6.2'
     implementation 'org.springframework.boot:spring-boot-starter-freemarker'
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'

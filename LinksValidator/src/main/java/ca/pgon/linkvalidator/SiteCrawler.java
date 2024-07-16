@@ -9,6 +9,8 @@
  */
 package ca.pgon.linkvalidator;
 
+import com.foilen.smalltools.tools.StreamsTools;
+
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
@@ -16,8 +18,6 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
-
-import ca.pgon.st.light6.StreamsUtils;
 
 /**
  * Download a URL, retrieve all the links (if HTML) and try to retrieve them.
@@ -121,7 +121,7 @@ public class SiteCrawler extends Thread {
     }
 
     private void crawl(String url) throws Exception {
-        String html = StreamsUtils.consumeAsString(new URL(url).openStream());
+        String html = StreamsTools.consumeAsString(new URL(url).openStream());
         LinksRetriever linksRetriever = new LinksRetriever(html, url);
 
         getAndAddTheLinks("Scripts", linksRetriever.getScripts());

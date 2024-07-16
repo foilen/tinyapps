@@ -9,11 +9,11 @@
  */
 package com.foilen.gnucashbulk.action;
 
-import javax.swing.JOptionPane;
-
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.foilen.gnucashbulk.gui.Principal;
+
+import javax.swing.*;
 
 public class DeleteLatestsYearAction {
 

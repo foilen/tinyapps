@@ -11,11 +11,10 @@ package ca.pgon.linkvalidator;
 
 import java.util.List;
 
+import com.foilen.smalltools.tools.ResourceTools;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import ca.pgon.st.light6.ResourceTools;
 
 /**
  * Tests for {@link LinksRetriever}.

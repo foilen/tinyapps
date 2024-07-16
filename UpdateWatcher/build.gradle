@@ -4,5 +4,5 @@ apply plugin: 'application'
 mainClassName = 'ca.pgon.UpdateWatcher.App'
 
 dependencies {
-    implementation 'ca.pgon:st-light7:3.0'
+    implementation "com.foilen:jl-smalltools-main:$smalltoolsVersion"
 }

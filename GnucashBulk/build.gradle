@@ -6,10 +6,10 @@ mainClassName = 'com.foilen.gnucashbulk.App'
 sourceCompatibility = 21
 
 dependencies {
-    implementation "com.foilen:jl-smalltools:$smalltoolsVersion"
-    implementation 'org.springframework:spring-jdbc:4.2.4.RELEASE'
-    implementation 'org.xerial:sqlite-jdbc:3.8.11.2'
+    implementation "com.foilen:jl-smalltools-main:$smalltoolsVersion"
+    implementation 'org.springframework:spring-jdbc:6.1.11'
+    implementation 'org.xerial:sqlite-jdbc:3.46.0.0'
     implementation 'javax.xml.bind:jaxb-api:2.3.1'
     
-    testImplementation 'junit:junit:4.11'
+    testImplementation 'junit:junit:4.13.2'
 }

@@ -9,14 +9,14 @@
  */
 package ca.pgon.freenetknowledge.action;
 
+import jakarta.annotation.PostConstruct;
+
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
-
-import javax.annotation.PostConstruct;
 
 /**
  * The action controller is a Bean that executes actions indefinitely. It is using an ActionGenerator to always fill it with new actions.

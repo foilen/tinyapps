@@ -13,8 +13,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.sql.DataSource;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -36,6 +34,8 @@ import ca.pgon.freenetknowledge.freenet.IntegerToFnTypeConverter;
 import ca.pgon.freenetknowledge.repository.starter.UrlStarter;
 import ca.pgon.freenetknowledge.search.impl.LuceneSearchEngine;
 import ca.pgon.freenetknowledge.spiders.news.NewsUtils;
+
+import javax.sql.DataSource;
 
 @EnableAutoConfiguration
 @EnableTransactionManagement
