@@ -4,7 +4,7 @@ tinyapps
 A couple small applications I made
 
 To compile and create zips in /apps/:
-* ./build.sh
+* ./create-local-release.sh
 
 To load in Eclipse:
 * Simply import the projects as Gradle projects.
