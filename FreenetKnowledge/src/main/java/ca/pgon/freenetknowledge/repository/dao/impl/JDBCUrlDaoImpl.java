@@ -65,7 +65,7 @@ public class JDBCUrlDaoImpl extends JdbcTemplate implements UrlDao {
             }
         }, keyHolder);
 
-        Long generatedId = new Long(keyHolder.getKey().longValue());
+        long generatedId = keyHolder.getKey().longValue();
         ue.setId(generatedId);
     }
 

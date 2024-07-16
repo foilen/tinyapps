@@ -20,15 +20,15 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import ca.pgon.st.light6.StreamsUtils;
 
 /**
- * Download an URL, retrieve all the links (if HTML) and try to retrieve them.
+ * Download a URL, retrieve all the links (if HTML) and try to retrieve them.
  */
 public class SiteCrawler extends Thread {
 
     // The visited sites and their status code
-    private Map<String, String> visitedSites = new ConcurrentHashMap<>();
-    private Queue<String> sitesToVisit = new ConcurrentLinkedQueue<>();
+    private final Map<String, String> visitedSites = new ConcurrentHashMap<>();
+    private final Queue<String> sitesToVisit = new ConcurrentLinkedQueue<>();
 
-    private String baseUrl;
+    private final String baseUrl;
 
     /**
      * @param baseUrl
