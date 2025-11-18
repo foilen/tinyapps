@@ -31,6 +31,11 @@ public class Principal extends JFrame implements ComponentListener, ActionListen
 
     // Program Entry
     public static void main(String[] args) {
+        try {
+            com.formdev.flatlaf.FlatLightLaf.setup();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         Config.load();
 
         // Load the window

@@ -4,5 +4,5 @@ apply plugin: 'application'
 mainClassName = 'slbh.gui.Principal'
 
 dependencies {
-
+    implementation 'com.formdev:flatlaf:3.6.2'
 }

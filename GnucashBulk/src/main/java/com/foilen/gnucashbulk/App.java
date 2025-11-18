@@ -15,6 +15,11 @@ import com.foilen.gnucashbulk.rowmapper.StringRowMapper;
 public class App {
 
     public static void main(String[] args) throws IOException, InterruptedException {
+        try {
+            com.formdev.flatlaf.FlatLightLaf.setup();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         // Choose the GnuCash file
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Choose a GnuCash file (in SQLite format ; not xml)");

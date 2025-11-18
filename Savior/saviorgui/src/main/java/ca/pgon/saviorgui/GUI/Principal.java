@@ -610,6 +610,11 @@ public class Principal extends javax.swing.JFrame implements AddEvent, BackupEve
     }// GEN-LAST:event_ignoreDestinationActionPerformed
 
     public static void main(String args[]) {
+        try {
+            com.formdev.flatlaf.FlatLightLaf.setup();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             @Override
