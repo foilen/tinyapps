@@ -6,9 +6,6 @@ A couple small applications I made
 To compile and create zips in /apps/:
 * ./create-local-release.sh
 
-To load in Eclipse:
-* Simply import the projects as Gradle projects.
-
 Applications:
 * AmazonS3MassContentType: An application to quickly update all the content type of a bucket that are not already correctly set.
 * ChainCommander: Upload some files with clients in chain. When the client connects to the server, the server will tell him the last client connected so that he can download from that one.
